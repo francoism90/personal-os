@@ -1,0 +1,25 @@
+modules:
+  - type: signing
+  - type: files
+    files:
+      - source: system
+        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+
+  # Install starship
+  - type: dnf
+    repos:
+      copr:
+        - atim/starship
+    install:
+      packages:
+        - fish
+        - starship
+
+  # Install common packages
+  - type: dnf
+    install:
+      skip-unavailable: true
+      packages:
+        - btrfsmaintenance
+        - lm_sensors
+        - rsync
