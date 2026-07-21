@@ -3,7 +3,7 @@
 name: kinoite-nvidia-open
 description: Kinoite with nvidia-open
 base-image: ghcr.io/ublue-os/kinoite-nvidia
-image-version: latest
+image-version: 44
 modules:
   - from-file: base/common.yml
   - from-file: base/desktop.yml
