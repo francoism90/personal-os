@@ -18,9 +18,10 @@ modules:
   # Install common packages
   - type: dnf
     install:
-      skip-unavailable: true
       packages:
+        - firewall-config
         - btrfsmaintenance
         - hdparm
         - lm_sensors
+        - rclone
         - rsync
