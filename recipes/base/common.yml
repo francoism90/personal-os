@@ -5,7 +5,7 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
-  # Install starship
+  # Install fish
   - type: dnf
     repos:
       copr:
@@ -21,5 +21,6 @@ modules:
       skip-unavailable: true
       packages:
         - btrfsmaintenance
+        - hdparm
         - lm_sensors
         - rsync

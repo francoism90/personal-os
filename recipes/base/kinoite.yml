@@ -4,5 +4,18 @@ modules:
       - notify: true
         scope: system
         install:
+          - org.kde.elisa
+          - org.kde.filelight
+          - org.kde.gwenview
+          - org.kde.haruna
+          - org.kde.kamoso
+          - org.kde.kate
+          - org.kde.kcalc
+          - org.kde.kclock
+          - org.kde.kdf
+          - org.kde.kweather
+          - org.kde.kwrite
+          - org.kde.okular
           - org.mozilla.firefox
+          - io.github.DenysMb.Kontainer
       - scope: user
