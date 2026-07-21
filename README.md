@@ -4,7 +4,7 @@ Custom [BlueBuild](https://blue-build.org/) images, built from the recipes in [`
 
 ## Images
 
-- `kinoite-nvidia-open` — Fedora Kinoite on `ghcr.io/ublue-os/kinoite-nvidia` ([`recipes/recipe-kinoite-nvidia-open.yml`](recipes/recipe-kinoite-nvidia-open.yml))
+- `kinoite-nvidia-open` — Fedora Kinoite based on `ghcr.io/blue-build/base-images/fedora-kinoite-nvidia-open` ([`recipes/recipe-kinoite-nvidia-open.yml`](recipes/recipe-kinoite-nvidia-open.yml))
 
 ## Installation
 
