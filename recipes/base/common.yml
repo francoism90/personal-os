@@ -19,7 +19,6 @@ modules:
   - type: dnf
     install:
       packages:
-        - firewall-config
         - btrfsmaintenance
         - hdparm
         - lm_sensors
