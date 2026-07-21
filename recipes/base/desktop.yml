@@ -1,0 +1,10 @@
+modules:
+  - type: dnf
+    install:
+      skip-unavailable: true
+      packages:
+        - ntsync-autoload
+    remove:
+      packages:
+        - firefox
+        - firefox-langpacks
