@@ -13,6 +13,7 @@ modules:
     install:
       packages:
         - fish
+        - fastfetch
         - starship
 
   # Install common packages
