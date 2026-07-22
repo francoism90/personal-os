@@ -8,3 +8,10 @@ modules:
       packages:
         - firefox
         - firefox-langpacks
+
+  - type: justfiles
+    validate: true
+    install: true
+    include:
+      - common
+      - desktop
