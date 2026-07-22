@@ -19,8 +19,8 @@ if status is-interactive
     abbr -a rpmclean 'sudo rpm-ostree cleanup -p'
 
     # BlueBuild
-    abbr -a bb 'bluebuild'
     abbr -a bu 'blujust'
+    abbr -a bup 'blujust update'
 
     # Flatpak
     abbr -a fpl 'flatpak list'
