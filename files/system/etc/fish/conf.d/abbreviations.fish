@@ -28,6 +28,7 @@ if status is-interactive
 
     # Toolbox / Distrobox
     abbr -a tbe 'toolbox enter'
+    abbr -a tbr 'toolbox run'
     abbr -a dbe 'distrobox enter'
 
     # Listing Dependencies

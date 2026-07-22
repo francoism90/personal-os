@@ -4,11 +4,6 @@ modules:
       - scope: user
         repo:
           title: Flathub (user)
-        install:
-          - com.visualstudio.code
-          - dev.zed.Zed
-          - io.github.pwr_solaar.solaar
-          - org.qbittorrent.qBittorrent
       - notify: true
         scope: system
         repo:

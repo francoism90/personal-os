@@ -12,7 +12,7 @@ alias rpmrb='rpm-ostree rollback'
 alias rpmclean='sudo rpm-ostree cleanup -p'
 
 # BlueBuild
-alias bb='blujust'
+alias bu='blujust'
 alias bup='blujust update'
 
 # Flatpak
@@ -21,6 +21,7 @@ alias fpu='flatpak update'
 
 # Toolbox / Distrobox
 alias tbe='toolbox enter'
+alias tbr='toolbox run'
 alias dbe='distrobox enter'
 
 # Listing
