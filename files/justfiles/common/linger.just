@@ -1,10 +1,10 @@
-setup-linger:
+enable-linger:
     #!/usr/bin/bash
     set -euo pipefail
 
     loginctl enable-linger "${USER}"
 
-remove-linger:
+disable-linger:
     #!/usr/bin/bash
     set -euo pipefail
 

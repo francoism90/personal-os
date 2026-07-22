@@ -1,10 +1,3 @@
-disable-mac-randomization:
-    #!/usr/bin/bash
-    set -euo pipefail
-
-    sudo rm -f /etc/NetworkManager/conf.d/10-mac-randomization.conf
-    sudo systemctl reload NetworkManager
-
 enable-mac-randomization:
     #!/usr/bin/bash
     set -euo pipefail
@@ -15,4 +8,11 @@ enable-mac-randomization:
     ethernet.cloned-mac-address=stable
     wifi.cloned-mac-address=stable
     EOF
+    sudo systemctl reload NetworkManager
+
+disable-mac-randomization:
+    #!/usr/bin/bash
+    set -euo pipefail
+
+    sudo rm -f /etc/NetworkManager/conf.d/10-mac-randomization.conf
     sudo systemctl reload NetworkManager
