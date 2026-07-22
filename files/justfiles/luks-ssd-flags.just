@@ -13,7 +13,7 @@ setup-luks-ssd-flags:
         fi
     done
 
-remove-setup-luks-ssd-flags:
+remove-luks-ssd-flags:
     #!/usr/bin/bash
     set -euo pipefail
     shopt -s nullglob

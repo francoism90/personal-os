@@ -26,9 +26,10 @@ modules:
         - rclone
         - rsync
 
-  # Install common tools
+  # Install common justfiles
   - type: justfiles
     validate: true
     install: true
     include:
-      - setup-luks-ssd-flags.just
+      - firacode-nerd-fonts.just
+      - luks-ssd-flags.just
