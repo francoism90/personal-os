@@ -15,3 +15,4 @@ remove-easyeffects-presets:
     fi
 
     rm -rf "${config_dir}/output" "${config_dir}/irs"
+    echo "EasyEffects presets removed. Please restart EasyEffects for changes to take effect."

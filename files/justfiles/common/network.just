@@ -9,6 +9,7 @@ enable-mac-randomization:
     wifi.cloned-mac-address=stable
     EOF
     sudo systemctl reload NetworkManager
+    echo "MAC address randomization enabled. Please reconnect to your network for changes to take effect."
 
 disable-mac-randomization:
     #!/usr/bin/bash
@@ -16,3 +17,4 @@ disable-mac-randomization:
 
     sudo rm -f /etc/NetworkManager/conf.d/10-mac-randomization.conf
     sudo systemctl reload NetworkManager
+    echo "MAC address randomization disabled. Please reconnect to your network for changes to take effect."

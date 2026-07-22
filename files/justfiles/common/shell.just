@@ -12,17 +12,21 @@ disable-fish-greeter:
     end
     EOF
 
+    echo "Fish greeter disabled. Please restart your terminal for changes to take effect."
+
 enable-fish-greeter:
     #!/usr/bin/bash
     set -euo pipefail
 
     rm -f "${HOME}/.config/fish/conf.d/00-greeter.fish"
+    echo "Fish greeter enabled. Please restart your terminal for changes to take effect."
 
 disable-fastfetch-greeter:
     #!/usr/bin/bash
     set -euo pipefail
 
     rm -f "${HOME}/.config/fish/conf.d/01-fastfetch-greeter.fish"
+    echo "Fastfetch greeter disabled. Please restart your terminal for changes to take effect."
 
 enable-fastfetch-greeter:
     #!/usr/bin/bash
@@ -35,3 +39,5 @@ enable-fastfetch-greeter:
         fastfetch
     end
     EOF
+
+    echo "Fastfetch greeter enabled. Please restart your terminal for changes to take effect."
