@@ -1,9 +1,11 @@
+# Install EasyEffects JackHack96 presets
 install-easyeffects-presets:
     #!/usr/bin/bash
     set -euo pipefail
 
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/JackHack96/EasyEffects-Presets/master/install.sh)"
 
+# Remove EasyEffects presets
 remove-easyeffects-presets:
     #!/usr/bin/bash
     set -euo pipefail

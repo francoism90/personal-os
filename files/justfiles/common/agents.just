@@ -1,3 +1,4 @@
+# Set up the Claude Code agent toolbox container
 setup-claude-code:
     #!/usr/bin/bash
     set -euo pipefail
@@ -14,6 +15,7 @@ setup-claude-code:
 
     echo "Claude Code installed in the '${container}' toolbox. Enter it with: toolbox enter ${container}"
 
+# Remove the Claude Code agent toolbox container
 remove-claude-code:
     #!/usr/bin/bash
     set -euo pipefail

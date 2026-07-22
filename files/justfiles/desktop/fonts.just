@@ -1,3 +1,4 @@
+# Install FiraCode Nerd Fonts
 install-firacode-nerd-fonts:
     #!/usr/bin/bash
     set -euo pipefail
@@ -9,10 +10,13 @@ install-firacode-nerd-fonts:
     unzip -o /tmp/FiraCode.zip -d "${font_dir}"
     rm -f /tmp/FiraCode.zip
     fc-cache -fv
+    echo "FiraCode Nerd Fonts installed. Please restart your terminal for changes to take effect."
 
+# Remove FiraCode Nerd Fonts
 remove-firacode-nerd-fonts:
     #!/usr/bin/bash
     set -euo pipefail
 
     rm -rf "${HOME}/.local/share/fonts/FiraCode"
     fc-cache -fv
+    echo "FiraCode Nerd Fonts removed. Please restart your terminal for changes to take effect."

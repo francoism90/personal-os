@@ -1,4 +1,5 @@
-enable-mac-randomization:
+# Disable MAC address randomization for NetworkManager
+disable-mac-randomization:
     #!/usr/bin/bash
     set -euo pipefail
 
@@ -11,7 +12,8 @@ enable-mac-randomization:
     sudo systemctl reload NetworkManager
     echo "MAC address randomization enabled. Please reconnect to your network for changes to take effect."
 
-disable-mac-randomization:
+# Reset MAC address randomization settings for NetworkManager
+reset-mac-randomization:
     #!/usr/bin/bash
     set -euo pipefail
 

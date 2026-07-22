@@ -1,4 +1,5 @@
-setup-luks-nvme-flags:
+# Apply SSD/NVMe performance flags to LUKS devices
+apply-luks-nvme-flags:
     #!/usr/bin/bash
     set -euo pipefail
     shopt -s nullglob
@@ -14,7 +15,8 @@ setup-luks-nvme-flags:
         fi
     done
 
-remove-luks-nvme-flags:
+# Reset SSD/NVMe performance flags for LUKS devices
+reset-luks-nvme-flags:
     #!/usr/bin/bash
     set -euo pipefail
     shopt -s nullglob
