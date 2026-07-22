@@ -5,11 +5,6 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
-  # Include scripts
-  - type: script
-    scripts:
-      - append-bash-aliases.sh
-
   # Install fish
   - type: dnf
     repos:

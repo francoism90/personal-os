@@ -1,10 +1,22 @@
 modules:
   - type: default-flatpaks
     configurations:
+      - scope: user
+        repo:
+          title: Flathub (user)
+        install:
+          - com.visualstudio.code
+          - dev.zed.Zed
+          - io.github.pwr_solaar.solaar
+          - org.qbittorrent.qBittorrent
       - notify: true
         scope: system
+        repo:
+          title: Flathub (system)
         install:
+          - org.gtk.Gtk3theme.Breeze
           - org.kde.elisa
+          - org.kde.falkon
           - org.kde.filelight
           - org.kde.gwenview
           - org.kde.haruna
@@ -13,9 +25,14 @@ modules:
           - org.kde.kcalc
           - org.kde.kclock
           - org.kde.kdf
+          - org.kde.kolourpaint
           - org.kde.kweather
           - org.kde.kwrite
+          - org.kde.marknote
           - org.kde.okular
           - org.mozilla.firefox
+          - com.github.tchx84.Flatseal
+          - com.github.wwmm.easyeffects
           - io.github.DenysMb.Kontainer
-      - scope: user
+          - io.github.flattool.Warehouse
+          - io.podman_desktop.PodmanDesktop
