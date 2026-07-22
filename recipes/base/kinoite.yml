@@ -30,6 +30,7 @@ modules:
           - org.kde.kwrite
           - org.kde.marknote
           - org.kde.okular
+          - org.fedoraproject.MediaWriter
           - org.mozilla.firefox
           - com.github.tchx84.Flatseal
           - com.github.wwmm.easyeffects
