@@ -24,3 +24,10 @@ modules:
         - lm_sensors
         - rclone
         - rsync
+
+  # Install common tools
+  - type: justfiles
+    validate: true
+    install: true
+    include:
+      - setup-luks-ssd-flags.just
