@@ -18,6 +18,10 @@ if status is-interactive
     abbr -a rpmrb 'rpm-ostree rollback'
     abbr -a rpmclean 'sudo rpm-ostree cleanup -p'
 
+    # BlueBuild
+    abbr -a bb 'bluebuild'
+    abbr -a bu 'blujust'
+
     # Flatpak
     abbr -a fpl 'flatpak list'
     abbr -a fpu 'flatpak update'

@@ -11,6 +11,10 @@ alias rpmup='rpm-ostree upgrade'
 alias rpmrb='rpm-ostree rollback'
 alias rpmclean='sudo rpm-ostree cleanup -p'
 
+# BlueBuild
+alias bb='bluebuild'
+alias bu='blujust'
+
 # Flatpak
 alias fpl='flatpak list'
 alias fpu='flatpak update'

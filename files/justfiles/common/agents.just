@@ -8,6 +8,7 @@ setup-claude-code:
         toolbox --assumeyes create "${container}"
     fi
 
+    toolbox run --container "${container}" sudo dnf makecache
     toolbox run --container "${container}" sudo dnf install -y nodejs
     toolbox run --container "${container}" bash -c 'curl -fsSL https://claude.ai/install.sh | bash'
 
