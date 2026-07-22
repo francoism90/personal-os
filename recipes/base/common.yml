@@ -5,10 +5,10 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
-  # Enable per-user dotfile provisioning via /usr/share/user-tmpfiles.d/
+  # Include scripts
   - type: script
     scripts:
-      - enable-user-tmpfiles.sh
+      - append-bash-aliases.sh
 
   # Install fish
   - type: dnf

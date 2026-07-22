@@ -1,4 +1,4 @@
-setup-luks-ssd-flags:
+setup-luks-nvme-flags:
     #!/usr/bin/bash
     set -euo pipefail
     shopt -s nullglob
@@ -13,7 +13,7 @@ setup-luks-ssd-flags:
         fi
     done
 
-remove-luks-ssd-flags:
+remove-luks-nvme-flags:
     #!/usr/bin/bash
     set -euo pipefail
     shopt -s nullglob

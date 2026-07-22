@@ -15,10 +15,6 @@ alias rpmclean='sudo rpm-ostree cleanup -p'
 alias fpl='flatpak list'
 alias fpu='flatpak update'
 
-# Applications
-alias vsc='flatpak run com.visualstudio.code .'
-alias zed='flatpak run dev.zed.Zed-Preview .'
-
 # Toolbox / Distrobox
 alias tbe='toolbox enter'
 alias dbe='distrobox enter'
