@@ -43,3 +43,7 @@ jobs:
 
           # enabled by default, disable if your image is small and you want faster builds
           maximize_build_space: true
+
+          # rechunk the image into content-based layers for smaller updates;
+          # increases build time and build-time disk usage
+          chunkah: true
