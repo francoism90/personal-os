@@ -5,6 +5,11 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
+  # Enable per-user dotfile provisioning via /usr/share/user-tmpfiles.d/
+  - type: script
+    scripts:
+      - enable-user-tmpfiles.sh
+
   # Install fish
   - type: dnf
     repos:
@@ -31,5 +36,4 @@ modules:
     validate: true
     install: true
     include:
-      - firacode-nerd-fonts.just
-      - luks-ssd-flags.just
+      - common

@@ -10,6 +10,9 @@ setup-firacode-nerd-fonts:
     rm -f /tmp/FiraCode.zip
     fc-cache -fv
 
+    mkdir -p "${HOME}/.config"
+    starship preset nerd-font-symbols -o "${HOME}/.config/starship.toml"
+
 remove-firacode-nerd-fonts:
     #!/usr/bin/bash
     set -euo pipefail
