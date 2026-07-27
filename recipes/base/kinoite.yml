@@ -2,10 +2,11 @@ modules:
   - type: default-flatpaks
     configurations:
       - scope: user
+        notify: false
         repo:
-          title: Flathub (user)
-      - notify: false
-        scope: system
+          title: Flathub
+      - scope: system
+        notify: false
         repo:
           title: Flathub (system)
         install:
