@@ -1,4 +1,9 @@
 modules:
+  - type: dnf
+    install:
+      packages:
+        - plasma-union
+
   - type: default-flatpaks
     configurations:
       - scope: user
