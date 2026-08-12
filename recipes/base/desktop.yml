@@ -4,10 +4,13 @@ modules:
       skip-unavailable: true
       packages:
         - ntsync-autoload
+        - power-profiles-daemon
     remove:
       packages:
         - firefox
         - firefox-langpacks
+        - tuned
+        - tuned-ppd
 
   - type: justfiles
     validate: true
