@@ -1,5 +1,4 @@
 modules:
-  - type: signing
   - type: files
     files:
       - source: system
@@ -16,6 +15,15 @@ modules:
         - fastfetch
         - starship
 
+  # Terra repo (Fyra Labs) - https://terrapkg.com/
+  - type: dnf
+    repos:
+      files:
+        - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
+    install:
+      packages:
+        - terra-release
+
   # Install common packages
   - type: dnf
     install:
@@ -25,3 +33,5 @@ modules:
         - lm_sensors
         - rclone
         - rsync
+
+  - type: signing # this sets up the proper policy & signing files for signed images to work fully

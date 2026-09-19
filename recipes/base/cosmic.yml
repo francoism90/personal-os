@@ -1,0 +1,48 @@
+modules:
+  - type: dnf
+    install:
+      packages:
+        - boards
+        - cosmic-applet-package-updater
+        - cosmic-calculator
+        - cosmic-ext-applet-clipboard-manager
+        - cosmic-ext-applet-cosmic-nightlight
+        - cosmic-ext-applet-emoji-selector
+        - cosmic-ext-applet-examine
+        - cosmic-ext-applet-external-monitor-brightness
+        - cosmic-ext-applet-logomenu
+        - cosmic-ext-applet-ollama
+        - cosmic-ext-applet-sysinfo
+        - cosmic-ext-applet-system-monitor
+        - cosmic-ext-applet-tailscale
+        - cosmic-ext-applet-weather
+        - cosmic-ext-applet-workspace-icons
+        - cosmic-ext-camera
+        - cosmic-ext-classic-menu
+        - cosmic-ext-flux
+        - cosmic-ext-storage
+        - cosmic-ext-tasks
+        - cosmic-ext-tweaks
+        - examine
+        - gui-scale-applet
+        - minimon-applet
+        - noctua
+
+  - type: default-flatpaks
+    configurations:
+      - scope: user
+        notify: false
+        repo:
+          title: Flathub
+      - scope: system
+        notify: false
+        repo:
+          title: Flathub (system)
+        install:
+          - om.brave.Browser
+      - scope: system
+        notify: false
+        repo:
+          name: cosmic
+          title: COSMIC
+          url: https://apt.pop-os.org/cosmic/cosmic.flatpakrepo
