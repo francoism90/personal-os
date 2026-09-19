@@ -3,11 +3,34 @@ modules:
     install:
       skip-unavailable: true
       packages:
+        - kde-connect
         - ntsync-autoload
+        - tailscale
     remove:
       packages:
         - firefox
         - firefox-langpacks
+
+  - type: default-flatpaks
+    configurations:
+      - scope: system
+        notify: false
+        repo:
+          title: Flathub (system)
+        install:
+          - com.bitwarden.desktop
+          - com.brave.Browser
+          - com.github.tchx84.Flatseal
+          - com.github.wwmm.easyeffects
+          - com.obsproject.Studio
+          - com.usebottles.bottles
+          - com.valvesoftware.Steam
+          - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+          - com.visualstudio.code
+          - io.github.dvlv.boxbuddyrs
+          - io.github.pwr_solaar.solaar
+          - org.bleachbit.BleachBit
+          - org.fkoehler.KTailctl
 
   - type: justfiles
     validate: true

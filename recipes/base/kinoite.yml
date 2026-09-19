@@ -31,7 +31,3 @@ modules:
           - org.kde.kwrite
           - org.kde.marknote
           - org.kde.okular
-          - org.mozilla.firefox
-          - com.github.tchx84.Flatseal
-          - com.github.wwmm.easyeffects
-          - io.github.DenysMb.Kontainer
