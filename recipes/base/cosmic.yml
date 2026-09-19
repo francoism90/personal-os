@@ -34,11 +34,11 @@ modules:
         notify: false
         repo:
           title: Flathub (system)
-        install:
-          - dev.DBrox.CosmicPrivacyIndicator
       - scope: system
         notify: false
         repo:
           name: cosmic
           title: COSMIC
           url: https://apt.pop-os.org/cosmic/cosmic.flatpakrepo
+          install:
+            - dev.DBrox.CosmicPrivacyIndicator
