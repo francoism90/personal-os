@@ -5,7 +5,6 @@ modules:
       packages:
         - kde-connect
         - ntsync-autoload
-        - tailscale
     remove:
       packages:
         - firefox

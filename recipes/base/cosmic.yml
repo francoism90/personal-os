@@ -8,7 +8,6 @@ modules:
         - cosmic-ext-applet-clipboard-manager
         - cosmic-ext-applet-cosmic-nightlight
         - cosmic-ext-applet-emoji-selector
-        - cosmic-ext-applet-examine
         - cosmic-ext-applet-external-monitor-brightness
         - cosmic-ext-applet-logomenu
         - cosmic-ext-applet-ollama
