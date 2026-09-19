@@ -20,14 +20,6 @@ modules:
 
   - type: default-flatpaks
     configurations:
-      - scope: user
-        notify: false
-        repo:
-          title: Flathub
-      - scope: system
-        notify: false
-        repo:
-          title: Flathub (system)
       - scope: system
         notify: false
         repo:
