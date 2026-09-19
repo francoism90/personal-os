@@ -2,25 +2,20 @@ modules:
   - type: dnf
     install:
       packages:
-        - boards
         - cosmic-applet-package-updater
         - cosmic-calculator
         - cosmic-ext-applet-clipboard-manager
         - cosmic-ext-applet-cosmic-nightlight
         - cosmic-ext-applet-emoji-selector
         - cosmic-ext-applet-external-monitor-brightness
-        - cosmic-ext-applet-logomenu
-        - cosmic-ext-applet-ollama
         - cosmic-ext-applet-sysinfo
         - cosmic-ext-applet-system-monitor
-        - cosmic-ext-applet-tailscale
         - cosmic-ext-applet-weather
         - cosmic-ext-applet-workspace-icons
         - cosmic-ext-camera
         - cosmic-ext-tasks
         - cosmic-ext-tweaks
         - examine
-        - minimon-applet
         - noctua
 
   - type: default-flatpaks
