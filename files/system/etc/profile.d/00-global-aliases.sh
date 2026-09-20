@@ -19,6 +19,10 @@ alias bup='blujust update'
 alias fpl='flatpak list'
 alias fpu='flatpak update'
 
+# VS Code (Flatpak)
+alias vsc='flatpak run com.visualstudio.code'
+alias code='flatpak run com.visualstudio.code'
+
 # Toolbox / Distrobox
 alias tbe='toolbox enter'
 alias tbr='toolbox run'
