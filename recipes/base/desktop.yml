@@ -40,6 +40,7 @@ modules:
           - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
           - com.visualstudio.code
           - io.github.dvlv.boxbuddyrs
+          - io.github.martchus.syncthingtray
           - io.github.pwr_solaar.solaar
           - org.bleachbit.BleachBit
           - org.fkoehler.KTailctl

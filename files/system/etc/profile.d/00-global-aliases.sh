@@ -3,7 +3,7 @@ alias sc='sudo systemctl'
 alias scu='systemctl --user'
 alias scl='sudo journalctl -u.service -f'
 alias jf='journalctl -xf -n 1000'
-alias cjf='sudo -i journalctl --vacuum-size=1B'
+alias cjf='sudo journalctl --vacuum-size=1B'
 
 # rpm-ostree / Fedora Atomic
 alias rpmst='rpm-ostree status'

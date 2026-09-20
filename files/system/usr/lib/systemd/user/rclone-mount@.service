@@ -1,0 +1,31 @@
+[Unit]
+Description=Rclone network mount for %i
+Documentation=man:rclone(1)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+Environment="REMOTE_PATH=/"
+ExecStartPre=/usr/bin/mkdir -p %h/mnt/%i
+ExecStart=/usr/bin/rclone mount %i:${REMOTE_PATH} %h/mnt/%i \
+  --config=%h/.config/rclone/rclone.conf \
+  --umask 0022 \
+  --vfs-cache-mode full \
+  --vfs-cache-max-size 50G \
+  --vfs-cache-min-free-space 10G \
+  --vfs-fast-fingerprint \
+  --dir-cache-time 1m \
+  --vfs-cache-max-age 15s \
+  --no-seek \
+  --async-read=true \
+  --buffer-size 32M \
+  --sftp-concurrency 4 \
+  --sftp-chunk-size 32k \
+  --sftp-ciphers="aes128-gcm@openssh.com aes256-gcm@openssh.com"
+ExecStop=/usr/bin/fusermount3 -uz %h/mnt/%i
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target
