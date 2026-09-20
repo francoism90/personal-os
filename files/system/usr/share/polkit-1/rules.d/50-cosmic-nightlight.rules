@@ -1,0 +1,11 @@
+// The cosmic-nightlight applet applies its tint through a root helper run via
+// pkexec (VT bounce + DRM gamma LUT write). The upstream .deb ships this rule,
+// the Fedora RPM does not, so without it every change asks for a password.
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.freedesktop.policykit.exec" &&
+        action.lookup("program") == "/usr/bin/cosmic-nightlight-helper" &&
+        subject.local && subject.active &&
+        subject.isInGroup("wheel")) {
+        return polkit.Result.YES;
+    }
+});
