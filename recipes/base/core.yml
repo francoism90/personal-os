@@ -1,7 +1,7 @@
 modules:
-  # Core-only overlay (files/server/), kept apart from files/system so desktop images don't get it.
+  # Core-only overlay (files/core/), kept apart from files/system so desktop images don't get it.
   # Loads the ZFS kmod at boot: uCore ships it prebuilt and signed, but does not auto-load it.
   - type: files
     files:
-      - source: server
+      - source: core
         destination: /
