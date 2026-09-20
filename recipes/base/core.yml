@@ -5,3 +5,12 @@ modules:
     files:
       - source: core
         destination: /
+
+  # Time-based tuned profiles (files/core/etc/systemd/system/power-profile@*).
+  # uCore ships tuned but disables tuned.service, and tuned-adm needs the daemon running.
+  - type: systemd
+    system:
+      enabled:
+        - tuned.service
+        - power-profile@balanced.timer
+        - power-profile@powersave.timer

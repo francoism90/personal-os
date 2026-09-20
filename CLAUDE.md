@@ -48,8 +48,9 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     module that wires up `ujust` recipes.
   - `core.yml` — headless uCore (Fedora CoreOS) bits, used by `recipe-ucore.yml` on top of `common.yml`:
     the `files` module for the `files/core/` overlay (kept apart from `files/system` so desktop images
-    don't get it), currently just `etc/modules-load.d/zfs.conf`, since uCore ships the signed ZFS kmod but
-    doesn't auto-load it.
+    don't get it): `etc/modules-load.d/zfs.conf` (uCore ships the signed ZFS kmod but doesn't auto-load
+    it) and the `power-profile@*` service/timers that switch tuned profiles by time of day. The `systemd`
+    module enables those timers and `tuned.service`, which uCore ships but disables.
   - `desktop.yml` — desktop-environment-agnostic tweaks: the terra repo (`terra-release`, Nerd fonts; must
     come before `cosmic.yml`, which installs from it), dnf install/remove, `default-flatpaks` (Flathub
     apps, plus a second `system`-scope `flatpaks` remote for the custom Flatpaks), and `kargs`. The custom

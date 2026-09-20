@@ -1,0 +1,9 @@
+[Unit]
+Description=Switch to powersave profile at 01:00 (weekdays) or 02:00 (weekends)
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 01:00:00
+OnCalendar=Sat,Sun *-*-* 02:00:00
+
+[Install]
+WantedBy=timers.target
