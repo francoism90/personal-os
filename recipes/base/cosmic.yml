@@ -2,7 +2,6 @@ modules:
   - type: dnf
     install:
       packages:
-        - cosmic-applet-package-updater
         - cosmic-calculator
         - cosmic-ext-applet-clipboard-manager
         - cosmic-ext-applet-cosmic-nightlight
@@ -15,6 +14,7 @@ modules:
         - cosmic-ext-camera
         - cosmic-ext-tasks
         - cosmic-ext-tweaks
+        - cosmic-monitor
         - examine
         - noctua
 
