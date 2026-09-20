@@ -59,7 +59,8 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     that remote, so adding or updating one of those apps never touches the image recipes. Keep that block
     after the Flathub one, because the apps' runtimes come from Flathub.
   - `kinoite.yml` — KDE/Kinoite-specific bits, currently `default-flatpaks` (system + user scope).
-  - `cosmic.yml` — COSMIC-specific bits: `dnf` install of the terrapkg COSMIC desktop extras (each
+  - `cosmic.yml` — COSMIC-specific bits: the `files` module for the `files/cosmic/` overlay (the
+    cosmic-nightlight polkit rule and `/etc/environment` with `COSMIC_DISABLE_DIRECT_SCANOUT`), `dnf` install of the terrapkg COSMIC desktop extras (each
     subdirectory under `anda/desktops/cosmic` in `terrapkg/packages` is its own package, not one bundle),
     plus `default-flatpaks` (GTK/libcosmic-friendly Flathub apps, and a `system`-scope `cosmic` repo
     pointing at `https://apt.pop-os.org/cosmic/cosmic.flatpakrepo`).
