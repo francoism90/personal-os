@@ -21,8 +21,10 @@ modules:
       packages:
         - btrfsmaintenance
         - hdparm
+        - htop
         - lm_sensors
         - rclone
         - rsync
+        - tmux
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully

@@ -6,6 +6,15 @@ modules:
       - source: core
         destination: /
 
+  # Cockpit: uCore already ships cockpit-networkmanager, -podman, -selinux, -storaged and -system,
+  # so only the rest is added here.
+  - type: dnf
+    install:
+      packages:
+        - cockpit
+        - cockpit-ostree
+        - cockpit-ws-selinux
+
   # Time-based tuned profiles (files/core/etc/systemd/system/power-profile@*).
   # uCore ships tuned but disables tuned.service, and tuned-adm needs the daemon running.
   - type: systemd
