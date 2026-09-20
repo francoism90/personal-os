@@ -5,4 +5,4 @@ description: Headless Fedora CoreOS (uCore) with ZFS
 base-image: ghcr.io/ublue-os/ucore
 image-version: stable
 modules:
-  - from-file: base/server.yml
+  - from-file: base/core.yml
