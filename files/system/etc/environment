@@ -1,0 +1,3 @@
+# Remove once <https://github.com/pop-os/cosmic-comp/issues/713> is fixed
+
+COSMIC_DISABLE_DIRECT_SCANOUT=1
