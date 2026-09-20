@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=COSMIC
+Comment=This session logs you into the COSMIC desktop
+Comment[sv]=Denna session loggar in dig till skrivbordsmiljön COSMIC
+# Upstream uses /usr/bin/start-cosmic, see the wrapper for why this differs
+Exec=/usr/libexec/start-cosmic-after-greeter
+Type=Application
+DesktopNames=COSMIC
