@@ -23,6 +23,13 @@ modules:
       - scope: system
         notify: false
         repo:
+          title: Flathub (system)
+        install:
+          - org.gnome.Loupe
+
+      - scope: system
+        notify: false
+        repo:
           name: cosmic
           title: COSMIC
           url: https://apt.pop-os.org/cosmic/cosmic.flatpakrepo
