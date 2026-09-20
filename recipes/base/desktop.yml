@@ -49,4 +49,3 @@ modules:
     install: true
     include:
       - common
-      - desktop

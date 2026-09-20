@@ -23,6 +23,7 @@ modules:
     install:
       packages:
         - terra-release
+        - firacode-nerd-fonts
 
   # Install common packages
   - type: dnf
