@@ -1,0 +1,29 @@
+modules:
+  # Server-only overlay (files/server/), kept apart from files/system so desktop images don't get it.
+  # Loads the ZFS kmod at boot: uCore ships it prebuilt and signed, but does not auto-load it.
+  - type: files
+    files:
+      - source: server
+        destination: /
+
+  # Install fish
+  - type: dnf
+    repos:
+      copr:
+        - atim/starship
+    install:
+      packages:
+        - fish
+        - fastfetch
+        - starship
+
+  # Install common packages
+  - type: dnf
+    install:
+      packages:
+        - hdparm
+        - lm_sensors
+        - rclone
+        - rsync
+
+  - type: signing # this sets up the proper policy & signing files for signed images to work fully
