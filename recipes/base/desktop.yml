@@ -10,6 +10,19 @@ modules:
         - firefox
         - firefox-langpacks
 
+  # Kora icon theme - https://github.com/bikass/kora
+  # The copr also ships KDE/Qt libs (e.g. kf6-kirigami), so only pull kora from it and drop the repo after.
+  - type: dnf
+    repos:
+      cleanup: true
+      copr:
+        - hazel-bunny/ricing
+    install:
+      packages:
+        - repo: copr:copr.fedorainfracloud.org:hazel-bunny:ricing
+          packages:
+            - kora-icon-theme
+
   - type: default-flatpaks
     configurations:
       - scope: system
