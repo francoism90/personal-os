@@ -7,3 +7,36 @@ modules:
     install:
       packages:
         - cosmic-desktop
+        - cosmic-monitor
+        - cosmic-osk
+    # The base image ships stable COSMIC and `cosmic-desktop` only depends on those by name,
+    # so the nightlies have to be swapped in explicitly.
+    replace:
+      - from-repo: copr:copr.fedorainfracloud.org:ryanabx:cosmic-epoch
+        packages:
+          - cosmic-app-library
+          - cosmic-applets
+          - cosmic-bg
+          - cosmic-comp
+          - cosmic-edit
+          - cosmic-files
+          - cosmic-greeter
+          - cosmic-icon-theme
+          - cosmic-idle
+          - cosmic-initial-setup
+          - cosmic-launcher
+          - cosmic-notifications
+          - cosmic-osd
+          - cosmic-panel
+          - cosmic-player
+          - cosmic-randr
+          - cosmic-screenshot
+          - cosmic-session
+          - cosmic-settings
+          - cosmic-settings-daemon
+          - cosmic-store
+          - cosmic-term
+          - cosmic-wallpapers
+          - cosmic-workspaces
+          - pop-launcher
+          - xdg-desktop-portal-cosmic

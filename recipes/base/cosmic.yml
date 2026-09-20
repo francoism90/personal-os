@@ -14,7 +14,6 @@ modules:
         - cosmic-ext-camera
         - cosmic-ext-tasks
         - cosmic-ext-tweaks
-        - cosmic-monitor
         - examine
 
   - type: default-flatpaks
