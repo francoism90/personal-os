@@ -15,16 +15,6 @@ modules:
         - fastfetch
         - starship
 
-  # Terra repo (Fyra Labs) - https://terrapkg.com/
-  - type: dnf
-    repos:
-      files:
-        - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
-    install:
-      packages:
-        - terra-release
-        - firacode-nerd-fonts
-
   # Install common packages
   - type: dnf
     install:
