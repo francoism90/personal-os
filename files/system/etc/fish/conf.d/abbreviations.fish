@@ -18,6 +18,12 @@ if status is-interactive
     abbr -a rpmrb 'rpm-ostree rollback'
     abbr -a rpmclean 'sudo rpm-ostree cleanup -p'
 
+    # bootc (needs root)
+    abbr -a bcst 'sudo bootc status'
+    abbr -a bcup 'sudo bootc upgrade'
+    abbr -a bcrb 'sudo bootc rollback'
+    abbr -a bcsw 'sudo bootc switch'
+
     # BlueBuild
     abbr -a bu 'blujust'
     abbr -a bup 'blujust update'

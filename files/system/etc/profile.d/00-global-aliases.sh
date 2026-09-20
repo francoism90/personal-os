@@ -11,6 +11,12 @@ alias rpmup='rpm-ostree upgrade'
 alias rpmrb='rpm-ostree rollback'
 alias rpmclean='sudo rpm-ostree cleanup -p'
 
+# bootc (needs root)
+alias bcst='sudo bootc status'
+alias bcup='sudo bootc upgrade'
+alias bcrb='sudo bootc rollback'
+alias bcsw='sudo bootc switch'
+
 # BlueBuild
 alias bu='blujust'
 alias bup='blujust update'
