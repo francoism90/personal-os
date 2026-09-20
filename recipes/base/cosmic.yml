@@ -1,4 +1,10 @@
 modules:
+  # COSMIC-only overlay (files/cosmic/), kept apart from files/system so other images don't get it.
+  - type: files
+    files:
+      - source: cosmic
+        destination: /
+
   - type: dnf
     install:
       packages:

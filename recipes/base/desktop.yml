@@ -1,4 +1,15 @@
 modules:
+  # Terra repo (Fyra Labs) - https://terrapkg.com/
+  # Must stay before the recipe's desktop fragment (e.g. cosmic.yml), which installs packages from it.
+  - type: dnf
+    repos:
+      files:
+        - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
+    install:
+      packages:
+        - terra-release
+        - firacode-nerd-fonts
+
   - type: dnf
     install:
       skip-unavailable: true

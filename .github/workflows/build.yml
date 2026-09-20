@@ -29,6 +29,7 @@ jobs:
           - recipe-cosmic-nvidia-open.yml
           - recipe-cosmic-nightly-nvidia-open.yml
           - recipe-kinoite-nvidia-open.yml
+          - recipe-ucore.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image

@@ -15,8 +15,8 @@ image; that only happens in CI (or manually via the `bluebuild` CLI, which is no
   itself at build time (e.g. the `justfiles` module below has `validate: true`, which checks `just`
   syntax during the build).
 - Builds run via `.github/workflows/build.yml`, using the reusable `blue-build/github-action`, matrixed
-  over `recipes/recipe-*.yml` (currently `recipe-kinoite-nvidia-open.yml` and
-  `recipe-cosmic-nvidia-open.yml`). Triggers: push (except docs-only changes), pull_request, a daily
+  over `recipes/recipe-*.yml` (currently `recipe-kinoite-nvidia-open.yml`,
+  `recipe-cosmic-nvidia-open.yml`, `recipe-cosmic-nightly-nvidia-open.yml` and `recipe-ucore.yml`). Triggers: push (except docs-only changes), pull_request, a daily
   06:00 UTC schedule, and manual `workflow_dispatch`.
 - Images are signed with cosign; the public key lives at `cosign.pub`, the private key is the
   `SIGNING_SECRET` GitHub Actions secret. Never commit `cosign.key`/`cosign.private` (already gitignored).
@@ -44,9 +44,16 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
 - `recipes/base/*.yml` — reusable module fragments shared across recipes, each just a `modules:` list
   fragment (not standalone recipes). Current split:
   - `common.yml` — applies to every image: the `files` module (see below), fish/starship via a copr,
-    common CLI packages (btrfsmaintenance, hdparm, lm_sensors, rclone, rsync), and the `justfiles`
+    common CLI packages (btrfsmaintenance, hdparm, htop, lm_sensors, rclone, rsync, tmux), and the `justfiles`
     module that wires up `ujust` recipes.
-  - `desktop.yml` — desktop-environment-agnostic tweaks: dnf install/remove, `default-flatpaks` (Flathub
+  - `core.yml` — headless uCore (Fedora CoreOS) bits, used by `recipe-ucore.yml` on top of `common.yml`:
+    the `files` module for the `files/core/` overlay (kept apart from `files/system` so desktop images
+    don't get it): `etc/modules-load.d/zfs.conf` (uCore ships the signed ZFS kmod but doesn't auto-load
+    it) and the `power-profile@*` service/timers that switch tuned profiles by time of day. The `systemd`
+    module enables those timers and `tuned.service`, which uCore ships but disables. It also installs the
+    Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
+  - `desktop.yml` — desktop-environment-agnostic tweaks: the terra repo (`terra-release`, Nerd fonts; must
+    come before `cosmic.yml`, which installs from it), dnf install/remove, `default-flatpaks` (Flathub
     apps, plus a second `system`-scope `flatpaks` remote for the custom Flatpaks), and `kargs`. The custom
     Flatpaks (`com.visualstudio.code`, `ai.claude.desktop`, `org.freedesktop.Sdk.Extension.podman`) are
     built and signed in a separate repo, [`francoism90/flatpaks`](https://github.com/francoism90/flatpaks),
@@ -54,7 +61,8 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     that remote, so adding or updating one of those apps never touches the image recipes. Keep that block
     after the Flathub one, because the apps' runtimes come from Flathub.
   - `kinoite.yml` — KDE/Kinoite-specific bits, currently `default-flatpaks` (system + user scope).
-  - `cosmic.yml` — COSMIC-specific bits: `dnf` install of the terrapkg COSMIC desktop extras (each
+  - `cosmic.yml` — COSMIC-specific bits: the `files` module for the `files/cosmic/` overlay (the
+    cosmic-nightlight polkit rule and `/etc/environment` with `COSMIC_DISABLE_DIRECT_SCANOUT`), `dnf` install of the terrapkg COSMIC desktop extras (each
     subdirectory under `anda/desktops/cosmic` in `terrapkg/packages` is its own package, not one bundle),
     plus `default-flatpaks` (GTK/libcosmic-friendly Flathub apps, and a `system`-scope `cosmic` repo
     pointing at `https://apt.pop-os.org/cosmic/cosmic.flatpakrepo`).

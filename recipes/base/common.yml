@@ -15,24 +15,16 @@ modules:
         - fastfetch
         - starship
 
-  # Terra repo (Fyra Labs) - https://terrapkg.com/
-  - type: dnf
-    repos:
-      files:
-        - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
-    install:
-      packages:
-        - terra-release
-        - firacode-nerd-fonts
-
   # Install common packages
   - type: dnf
     install:
       packages:
         - btrfsmaintenance
         - hdparm
+        - htop
         - lm_sensors
         - rclone
         - rsync
+        - tmux
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
