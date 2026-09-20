@@ -25,6 +25,7 @@ modules:
         repo:
           title: Flathub (system)
         install:
+          - io.github.diegopvlk.Cine
           - org.gnome.Loupe
 
       - scope: system
