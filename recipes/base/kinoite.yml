@@ -25,9 +25,15 @@ modules:
           - org.kde.kate
           - org.kde.kcalc
           - org.kde.kclock
+          - org.kde.kcolorchooser
           - org.kde.kdf
+          - org.kde.kdiff3
+          - org.kde.keepsecret
+          - org.kde.kfind
           - org.kde.kolourpaint
+          - org.kde.krita
           - org.kde.kweather
           - org.kde.kwrite
           - org.kde.marknote
           - org.kde.okular
+          - org.kde.optiimage
