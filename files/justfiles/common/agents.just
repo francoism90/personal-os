@@ -9,8 +9,8 @@ setup-claude-code:
         toolbox --assumeyes create "${container}"
     fi
 
-    toolbox run --container "${container}" sudo dnf makecache
-    toolbox run --container "${container}" sudo dnf install -y nodejs
+    toolbox run --container "${container}" sudo dnf upgrade --refresh -y
+    toolbox run --container "${container}" sudo dnf install -y nodejs gh php-cli composer
     toolbox run --container "${container}" bash -c 'curl -fsSL https://claude.ai/install.sh | bash'
 
     echo "Claude Code installed in the '${container}' toolbox. Enter it with: toolbox enter ${container}"
