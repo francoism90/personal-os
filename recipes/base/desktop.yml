@@ -34,17 +34,32 @@ modules:
           - com.brave.Browser
           - com.github.tchx84.Flatseal
           - com.github.wwmm.easyeffects
+          - com.ktechpit.whatsie
           - com.obsproject.Studio
+          - com.rafaelmardojai.Blanket
           - com.usebottles.bottles
           - com.valvesoftware.Steam
           - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
-          - com.visualstudio.code
+          - fr.handbrake.ghb
           - io.github.dvlv.boxbuddyrs
           - io.github.martchus.syncthingtray
           - io.github.pwr_solaar.solaar
           - md.obsidian.Obsidian
           - org.bleachbit.BleachBit
           - org.fkoehler.KTailctl
+
+      # Custom builds (GPG-signed remote), sources at https://github.com/francoism90/flatpaks.
+      # Must stay after the Flathub block: the runtimes these apps need come from Flathub.
+      - scope: system
+        notify: false
+        repo:
+          name: flatpaks
+          title: francoism90 Flatpaks
+          url: https://francoism90.github.io/flatpaks/index.flatpakrepo
+        install:
+          - ai.claude.desktop
+          - com.visualstudio.code
+          - org.freedesktop.Sdk.Extension.podman
 
   # Kernel arguments (written to /usr/lib/bootc/kargs.d/)
   - type: kargs

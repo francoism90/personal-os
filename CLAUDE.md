@@ -46,7 +46,13 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
   - `common.yml` — applies to every image: the `files` module (see below), fish/starship via a copr,
     common CLI packages (btrfsmaintenance, hdparm, lm_sensors, rclone, rsync), and the `justfiles`
     module that wires up `ujust` recipes.
-  - `desktop.yml` — desktop-environment-agnostic tweaks (currently: dnf install/remove).
+  - `desktop.yml` — desktop-environment-agnostic tweaks: dnf install/remove, `default-flatpaks` (Flathub
+    apps, plus a second `system`-scope `flatpaks` remote for the custom Flatpaks), and `kargs`. The custom
+    Flatpaks (`com.visualstudio.code`, `ai.claude.desktop`, `org.freedesktop.Sdk.Extension.podman`) are
+    built and signed in a separate repo, [`francoism90/flatpaks`](https://github.com/francoism90/flatpaks),
+    and published to `https://francoism90.github.io/flatpaks/index.flatpakrepo`. This repo only consumes
+    that remote, so adding or updating one of those apps never touches the image recipes. Keep that block
+    after the Flathub one, because the apps' runtimes come from Flathub.
   - `kinoite.yml` — KDE/Kinoite-specific bits, currently `default-flatpaks` (system + user scope).
   - `cosmic.yml` — COSMIC-specific bits: `dnf` install of the terrapkg COSMIC desktop extras (each
     subdirectory under `anda/desktops/cosmic` in `terrapkg/packages` is its own package, not one bundle),

@@ -25,7 +25,9 @@ modules:
           title: Flathub (system)
         install:
           - io.github.diegopvlk.Cine
+          - org.gnome.Calendar
           - org.gnome.Loupe
+          - org.gnome.Papers
 
       - scope: system
         notify: false
@@ -33,5 +35,5 @@ modules:
           name: cosmic
           title: COSMIC
           url: https://apt.pop-os.org/cosmic/cosmic.flatpakrepo
-          install:
-            - dev.DBrox.CosmicPrivacyIndicator
+        install:
+          - dev.DBrox.CosmicPrivacyIndicator
