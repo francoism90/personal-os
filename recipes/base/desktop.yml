@@ -46,6 +46,11 @@ modules:
           - org.bleachbit.BleachBit
           - org.fkoehler.KTailctl
 
+  # Kernel arguments (written to /usr/lib/bootc/kargs.d/)
+  - type: kargs
+    kargs:
+      - amdgpu.dcdebugmask=0x10 # disable Panel Self Refresh (PSR) on AMD GPUs, avoids flicker/freezes on some eDP panels
+
   - type: justfiles
     validate: true
     install: true
