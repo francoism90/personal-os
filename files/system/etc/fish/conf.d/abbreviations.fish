@@ -17,6 +17,7 @@ if status is-interactive
     abbr -a rpmup 'rpm-ostree upgrade'
     abbr -a rpmrb 'rpm-ostree rollback'
     abbr -a rpmclean 'sudo rpm-ostree cleanup -p'
+    abbr -a rpmlog 'rpm-ostree db diff -c'
 
     # bootc (needs root)
     abbr -a bcst 'sudo bootc status'

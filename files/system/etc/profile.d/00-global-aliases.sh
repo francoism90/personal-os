@@ -10,6 +10,7 @@ alias rpmst='rpm-ostree status'
 alias rpmup='rpm-ostree upgrade'
 alias rpmrb='rpm-ostree rollback'
 alias rpmclean='sudo rpm-ostree cleanup -p'
+alias rpmlog='rpm-ostree db diff -c'
 
 # bootc (needs root)
 alias bcst='sudo bootc status'
