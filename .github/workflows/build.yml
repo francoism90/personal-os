@@ -26,8 +26,9 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - recipe-kinoite-nvidia-open.yml
           - recipe-cosmic-nvidia-open.yml
+          - recipe-cosmic-nightly-nvidia-open.yml
+          - recipe-kinoite-nvidia-open.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image

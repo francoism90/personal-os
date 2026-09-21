@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+name: cosmic-nightly-nvidia-open
+description: Cosmic with nvidia-open
+base-image: ghcr.io/blue-build/base-images/fedora-cosmic-nvidia-open
+image-version: latest
+modules:
+  - from-file: base/common.yml
+  - from-file: base/desktop.yml
+  - from-file: base/cosmic.yml
+  - from-file: base/cosmic-nightly.yml

@@ -1,0 +1,9 @@
+modules:
+  # COSMIC epoch builds - https://copr.fedorainfracloud.org/coprs/ryanabx/cosmic-epoch/
+  - type: dnf
+    repos:
+      copr:
+        - ryanabx/cosmic-epoch
+    install:
+      packages:
+        - cosmic-desktop

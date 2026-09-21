@@ -6,6 +6,7 @@ Custom [BlueBuild](https://blue-build.org/) images, built from the recipes in [`
 
 - `kinoite-nvidia-open` — Fedora Kinoite based on `ghcr.io/blue-build/base-images/fedora-kinoite-nvidia-open` ([`recipes/recipe-kinoite-nvidia-open.yml`](recipes/recipe-kinoite-nvidia-open.yml))
 - `cosmic-nvidia-open` — Fedora COSMIC based on `ghcr.io/blue-build/base-images/fedora-cosmic-nvidia-open` ([`recipes/recipe-cosmic-nvidia-open.yml`](recipes/recipe-cosmic-nvidia-open.yml))
+- `cosmic-nightly-nvidia-open` — same as `cosmic-nvidia-open`, but with the COSMIC desktop from the [`ryanabx/cosmic-epoch`](https://copr.fedorainfracloud.org/coprs/ryanabx/cosmic-epoch/) COPR ([`recipes/recipe-cosmic-nightly-nvidia-open.yml`](recipes/recipe-cosmic-nightly-nvidia-open.yml))
 
 > [!WARNING]
 > [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
