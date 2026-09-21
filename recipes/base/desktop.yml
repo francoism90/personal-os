@@ -53,7 +53,6 @@ modules:
           - com.valvesoftware.Steam
           - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
           - fr.handbrake.ghb
-          - io.github.dvlv.boxbuddyrs
           - io.github.martchus.syncthingtray
           - io.github.pwr_solaar.solaar
           - md.obsidian.Obsidian

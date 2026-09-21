@@ -6,15 +6,12 @@ modules:
 
   - type: default-flatpaks
     configurations:
-      - scope: user
-        notify: false
-        repo:
-          title: Flathub
       - scope: system
         notify: false
         repo:
           title: Flathub (system)
         install:
+          - io.github.DenysMb.Kontainer
           - org.gtk.Gtk3theme.Breeze
           - org.kde.elisa
           - org.kde.falkon

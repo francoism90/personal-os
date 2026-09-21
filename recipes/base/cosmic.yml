@@ -30,6 +30,7 @@ modules:
           title: Flathub (system)
         install:
           - io.github.diegopvlk.Cine
+          - io.github.dvlv.boxbuddyrs
           - org.gnome.Calendar
           - org.gnome.Loupe
           - org.gnome.Papers
