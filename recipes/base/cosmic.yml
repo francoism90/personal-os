@@ -16,7 +16,6 @@ modules:
         - cosmic-ext-tweaks
         - cosmic-monitor
         - examine
-        - noctua
 
   - type: default-flatpaks
     configurations:
