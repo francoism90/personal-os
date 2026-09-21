@@ -44,13 +44,19 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
 - `recipes/base/*.yml` — reusable module fragments shared across recipes, each just a `modules:` list
   fragment (not standalone recipes). Current split:
   - `common.yml` — applies to every image: the `files` module (see below), fish/starship via a copr,
-    common CLI packages (btrfsmaintenance, hdparm, htop, lm_sensors, rclone, rsync, tmux), and the `justfiles`
-    module that wires up `ujust` recipes.
+    common CLI packages (btrfsmaintenance, hdparm, htop, lm_sensors, rclone, rsync, tmux), a `systemd` module enabling the
+    btrfsmaintenance timers (`btrfs-balance`, `btrfs-scrub`; trim is left to `fstrim.timer`; schedules come from
+    `files/system/etc/sysconfig/btrfsmaintenance`), `fstrim.timer`, plus `podman-auto-update.timer` in
+    both system and user scope and the user `podman.socket`, and the `justfiles` module that wires up `ujust` recipes.
   - `core.yml` — headless uCore (Fedora CoreOS) bits, used by `recipe-ucore.yml` on top of `common.yml`:
     the `files` module for the `files/core/` overlay (kept apart from `files/system` so desktop images
     don't get it): `etc/modules-load.d/zfs.conf` (uCore ships the signed ZFS kmod but doesn't auto-load
-    it) and the `power-profile@*` service/timers that switch tuned profiles by time of day. The `systemd`
-    module enables those timers and `tuned.service`, which uCore ships but disables. It also installs the
+    it), `zfs-unlock.service` (runs `zfs load-key -a` before `zfs-mount.service`; OpenZFS ships no key-loading
+    unit of its own) plus the per-pool `zfs-unlock@<pool>.service` (`load-key -r <pool>`, shipped but not
+    enabled; use one or the other) and the `power-profile@*` service/timers that switch tuned profiles by
+    time of day. Those units live under `files/core/usr/lib/systemd/system/` (vendor location, so a local
+    `/etc` copy never shadows image updates). The `systemd` module enables those timers,
+    `zfs-unlock.service` and `tuned.service`, which uCore ships but disables. It also installs the
     Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
   - `desktop.yml` — desktop-environment-agnostic tweaks: the terra repo (`terra-release`, Nerd fonts; must
     come before `cosmic.yml`, which installs from it), dnf install/remove, `default-flatpaks` (Flathub

@@ -1,0 +1,16 @@
+[Unit]
+Description=Unlock ZFS Datasets of Pool %i
+Documentation=man:zfs-load-key(8)
+RequiresMountsFor=/etc/cryptsetup-keys.d
+After=zfs-import.target
+Before=zfs-mount.service
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+ExecCondition=/bin/sh -c '/usr/sbin/zfs get -H -r -t filesystem,volume -o value keystatus %i | /usr/bin/grep -qx unavailable'
+ExecStart=/usr/sbin/zfs load-key -r %i
+RemainAfterExit=yes
+
+[Install]
+WantedBy=zfs-mount.service

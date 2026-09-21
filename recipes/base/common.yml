@@ -27,4 +27,18 @@ modules:
         - rsync
         - tmux
 
+  # Periodic btrfs maintenance, configured via files/system/etc/sysconfig/btrfsmaintenance,
+  # and podman auto-updates for both system and user (rootless) containers.
+  - type: systemd
+    system:
+      enabled:
+        - btrfs-balance.timer
+        - btrfs-scrub.timer
+        - fstrim.timer
+        - podman-auto-update.timer
+    user:
+      enabled:
+        - podman-auto-update.timer
+        - podman.socket
+
   - type: signing # this sets up the proper policy & signing files for signed images to work fully

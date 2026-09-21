@@ -15,11 +15,16 @@ modules:
         - cockpit-ostree
         - cockpit-ws-selinux
 
-  # Time-based tuned profiles (files/core/etc/systemd/system/power-profile@*).
+  # Time-based tuned profiles (files/core/usr/lib/systemd/system/power-profile@*).
   # uCore ships tuned but disables tuned.service, and tuned-adm needs the daemon running.
+  # Also enables zfs-unlock.service (files/core/usr/lib/systemd/system/zfs-unlock.service), which loads
+  # all ZFS encryption keys before zfs-mount.service. Its per-pool sibling zfs-unlock@<pool>.service is
+  # shipped but not enabled here (no pool names known at build time): enable it on the host instead,
+  # and don't run both, since both load the same keys.
   - type: systemd
     system:
       enabled:
         - tuned.service
         - power-profile@balanced.timer
         - power-profile@powersave.timer
+        - zfs-unlock.service
