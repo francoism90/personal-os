@@ -42,6 +42,17 @@ To rebase an existing atomic Fedora installation to the latest build, substitute
 
 The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in the recipe's `image-version`, so you won't get accidentally updated to the next major version.
 
+### Switching between images
+
+If you're already running one of these (signed) images, the signing keys and policies are in place, so you can skip the unsigned rebase and switch directly with `bootc`, e.g. from `cosmic-nightly-nvidia-open` to `kinoite-nvidia-open`:
+
+```bash
+sudo bootc switch --enforce-container-sigpolicy ghcr.io/francoism90/<image>:latest
+systemctl reboot
+```
+
+`--enforce-container-sigpolicy` makes bootc verify the image signature against `/etc/containers/policy.json`; without it, no signature check is done. Add `--apply` to reboot automatically. The previous deployment is kept, so `sudo bootc rollback` (followed by a reboot) takes you back. `/var` and `/etc` carry over, so your home directory and user-scope Flatpaks stay, but desktop-specific config (e.g. `~/.config/cosmic`) is left unused.
+
 ## ISO
 
 If build on Fedora Atomic, you can generate an offline ISO with the instructions available [here](https://blue-build.org/how-to/generate-iso/#_top). These ISOs cannot unfortunately be distributed on GitHub for free due to large sizes, so for public projects something else has to be used for hosting.
