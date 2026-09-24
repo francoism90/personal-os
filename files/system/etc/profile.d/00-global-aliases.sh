@@ -21,10 +21,29 @@ alias bcsw='sudo bootc switch'
 # BlueBuild
 alias bu='blujust'
 alias bup='blujust update'
+alias upd='blujust update'
 
 # Flatpak
 alias fpl='flatpak list'
 alias fpu='flatpak update'
+
+# Podman
+alias pps='podman ps'
+alias ppsa='podman ps -a'
+alias pi='podman images'
+alias plo='podman logs -f'
+alias pex='podman exec -it'
+alias prun='podman run'
+alias pst='podman start'
+alias psp='podman stop'
+alias pre='podman restart'
+alias prm='podman rm'
+alias prmi='podman rmi'
+alias ppull='podman pull'
+alias pbuild='podman build'
+alias pvol='podman volume ls'
+alias pnet='podman network ls'
+alias pprune='podman system prune -a'
 
 # VS Code (Flatpak)
 alias vsc='flatpak run com.visualstudio.code'

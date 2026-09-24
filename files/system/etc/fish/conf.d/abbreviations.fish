@@ -28,10 +28,29 @@ if status is-interactive
     # BlueBuild
     abbr -a bu 'blujust'
     abbr -a bup 'blujust update'
+    abbr -a upd 'blujust update'
 
     # Flatpak
     abbr -a fpl 'flatpak list'
     abbr -a fpu 'flatpak update'
+
+    # Podman
+    abbr -a pps 'podman ps'
+    abbr -a ppsa 'podman ps -a'
+    abbr -a pi 'podman images'
+    abbr -a plo 'podman logs -f'
+    abbr -a pex 'podman exec -it'
+    abbr -a prun 'podman run'
+    abbr -a pst 'podman start'
+    abbr -a psp 'podman stop'
+    abbr -a pre 'podman restart'
+    abbr -a prm 'podman rm'
+    abbr -a prmi 'podman rmi'
+    abbr -a ppull 'podman pull'
+    abbr -a pbuild 'podman build'
+    abbr -a pvol 'podman volume ls'
+    abbr -a pnet 'podman network ls'
+    abbr -a pprune 'podman system prune -a'
 
     # Toolbox / Distrobox
     abbr -a tbe 'toolbox enter'
