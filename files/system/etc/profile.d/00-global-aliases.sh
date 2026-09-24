@@ -55,10 +55,8 @@ alias tbr='toolbox run'
 alias dbe='distrobox enter'
 
 # Listing
-alias la='ls -A'
-alias lla='ll -A'
+alias la='ll -hA'
 alias llh='ll -h'
-alias llha='ll -hA'
 
 # Tmux Management
 alias ta='tmux attach-session -t'

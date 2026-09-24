@@ -65,10 +65,8 @@ if status is-interactive
     end
 
     # Listing
-    abbr -a la 'ls -A'
-    abbr -a lla 'll -A'
+    abbr -a la 'll -hA'
     abbr -a llh 'll -h'
-    abbr -a llha 'll -hA'
 
     # Tmux Management
     abbr -a ta 'tmux attach-session -t'
