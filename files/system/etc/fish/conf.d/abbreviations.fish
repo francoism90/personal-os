@@ -48,8 +48,8 @@ if status is-interactive
     abbr -a prmi 'podman rmi'
     abbr -a ppull 'podman pull'
     abbr -a pbuild 'podman build'
-    abbr -a pvol 'podman volume ls'
-    abbr -a pnet 'podman network ls'
+    abbr -a pvol 'podman volume'
+    abbr -a pnet 'podman network'
     abbr -a pprune 'podman system prune -a'
 
     # Toolbox / Distrobox
