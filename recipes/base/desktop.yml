@@ -54,6 +54,7 @@ modules:
           - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
           - fr.handbrake.ghb
           - io.github.martchus.syncthingtray
+          - io.github.mfat.sshpilot
           - io.github.pwr_solaar.solaar
           - md.obsidian.Obsidian
           - org.bleachbit.BleachBit
