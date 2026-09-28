@@ -3,6 +3,7 @@ modules:
     install:
       packages:
         - plasma-union
+        - fluent-icon-theme
 
   - type: default-flatpaks
     configurations:
