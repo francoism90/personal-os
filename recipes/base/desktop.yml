@@ -9,6 +9,7 @@ modules:
       packages:
         - terra-release
         - firacode-nerd-fonts
+        - tela-icon-theme
 
   - type: dnf
     install:
