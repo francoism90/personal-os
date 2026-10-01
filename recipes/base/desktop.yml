@@ -37,6 +37,7 @@ modules:
           - com.github.wwmm.easyeffects
           - com.ktechpit.whatsie
           - com.obsproject.Studio
+          - com.spotify.Client
           - com.usebottles.bottles
           - com.valvesoftware.Steam
           - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
@@ -47,7 +48,6 @@ modules:
           - md.obsidian.Obsidian
           - org.bleachbit.BleachBit
           - org.fkoehler.KTailctl
-          - rocks.shy.VacuumTube
 
       # Custom builds (GPG-signed remote), sources at https://github.com/francoism90/flatpaks.
       # Must stay after the Flathub block: the runtimes these apps need come from Flathub.
