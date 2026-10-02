@@ -1,4 +1,4 @@
-# Set up the dev toolbox container (Claude Code, gh, Node, PHP, Composer, search/JSON/lint tools)
+# Set up the dev toolbox container (fish, Claude Code, gh, Node, PHP, Composer, search/JSON/lint tools)
 setup-dev-toolbox:
     #!/usr/bin/bash
     set -euo pipefail
@@ -12,6 +12,7 @@ setup-dev-toolbox:
 
     toolbox run --container "${container}" sudo dnf upgrade --refresh -y
     toolbox run --container "${container}" sudo dnf install -y \
+        fish \
         ripgrep fd-find jq yq fzf bat git-delta just ShellCheck \
         php-cli composer \
         php-bcmath php-gd php-intl php-mbstring php-mysqlnd php-pdo php-pecl-zip php-pgsql php-process php-sodium php-xml \
