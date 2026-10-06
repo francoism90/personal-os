@@ -1,7 +1,7 @@
 podman_sdk_apps := "com.visualstudio.code com.vscodium.codium dev.zed.Zed dev.zed.Zed-Preview com.jetbrains.PhpStorm"
 
 # Enable the Podman SDK extension for installed Flatpak editors (VS Code, VSCodium, Zed, PhpStorm)
-enable-podman-sdk:
+enable-flatpak-podman-sdk:
     #!/usr/bin/bash
     set -euo pipefail
 
@@ -43,7 +43,7 @@ enable-podman-sdk:
     echo "https://github.com/francoism90/flatpaks/blob/main/src/org.freedesktop.Sdk.Extension.podman/README.md"
 
 # Remove the Podman SDK overrides from installed Flatpak editors
-remove-podman-sdk:
+remove-flatpak-podman-sdk:
     #!/usr/bin/bash
     set -euo pipefail
 
