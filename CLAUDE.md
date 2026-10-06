@@ -9,6 +9,22 @@ describes a custom Fedora Atomic (Kinoite) OCI image — there is no app code to
 locally. "Building" means BlueBuild's tooling interprets the recipe/module YAML and produces a container
 image; that only happens in CI (or manually via the `bluebuild` CLI, which is not installed in this repo).
 
+## Secrets and personal data — never commit them or put them in files
+
+Both the repo and the built images on `ghcr.io` are public, and anything under `files/` is baked into
+every image that includes it. Never write any of the following into a file in this repo (even an
+untracked or gitignored one), never add a file that contains it, and never commit it:
+
+- Passwords, password hashes, API tokens, private keys (SSH, GPG, cosign, TLS), Wi-Fi PSKs, VPN/WireGuard
+  configs with keys, or `.env`-style credential files.
+- Personal data: email addresses, phone numbers, home/real names beyond the existing `francoism90` handle,
+  hostnames, internal IPs/MACs, ZFS pool or disk serial numbers, Tailscale/Syncthing device IDs.
+
+If a change needs a secret, use a GitHub Actions secret (like `SIGNING_SECRET`) or have it set on the host
+at runtime (e.g. a `ujust` recipe that prompts for it); keep only placeholders in the repo. Before committing,
+check the staged diff (`git diff --cached`) for anything like the above, and if a secret was ever pushed,
+treat it as leaked: rotate it, don't just delete the commit.
+
 ## Building / validating changes
 
 - There is no local build, lint, or test command in this repo. Recipe YAML is validated by BlueBuild
@@ -51,7 +67,8 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
   - `core.yml` — headless uCore (Fedora CoreOS) bits, used by `recipe-ucore.yml` on top of `common.yml`:
     the `files` module for the `files/core/` overlay (kept apart from `files/system` so desktop images
     don't get it): `etc/modules-load.d/zfs.conf` (uCore ships the signed ZFS kmod but doesn't auto-load
-    it), `zfs-unlock.service` (runs `zfs load-key -a` before `zfs-mount.service`; OpenZFS ships no key-loading
+    it), `etc/sysctl.d/99-sysctl.conf` (server-tuned; overwrites the more conservative desktop copy from
+    `files/system`, since `core.yml` runs after `common.yml`), `zfs-unlock.service` (runs `zfs load-key -a` before `zfs-mount.service`; OpenZFS ships no key-loading
     unit of its own) plus the per-pool `zfs-unlock@<pool>.service` (`load-key -r <pool>`, shipped but not
     enabled; use one or the other) and the `power-profile@*` service/timers that switch tuned profiles by
     time of day. Those units live under `files/core/usr/lib/systemd/system/` (vendor location, so a local

@@ -15,17 +15,3 @@ reset-container-device-access:
 
     sudo setsebool -P container_use_devices off
     sudo setsebool -P container_use_dri_devices off
-
-# Enable linger for the current user
-enable-linger:
-    #!/usr/bin/bash
-    set -euo pipefail
-
-    loginctl enable-linger "${USER}"
-
-# Disable linger for the current user
-disable-linger:
-    #!/usr/bin/bash
-    set -euo pipefail
-
-    loginctl disable-linger "${USER}"
