@@ -5,11 +5,14 @@ Custom [BlueBuild](https://blue-build.org/) images, built from the recipes in [`
 ## Images
 
 - `kinoite-nvidia-open` — Fedora Kinoite based on `ghcr.io/blue-build/base-images/fedora-kinoite-nvidia-open` ([`recipes/recipe-kinoite-nvidia-open.yml`](recipes/recipe-kinoite-nvidia-open.yml))
-- `cosmic-nvidia-open` — Fedora COSMIC based on `ghcr.io/blue-build/base-images/fedora-cosmic-nvidia-open` ([`recipes/recipe-cosmic-nvidia-open.yml`](recipes/recipe-cosmic-nvidia-open.yml))
-- `cosmic-nightly-nvidia-open` — same as `cosmic-nvidia-open`, but with the COSMIC desktop from the [`ryanabx/cosmic-epoch`](https://copr.fedorainfracloud.org/coprs/ryanabx/cosmic-epoch/) COPR ([`recipes/recipe-cosmic-nightly-nvidia-open.yml`](recipes/recipe-cosmic-nightly-nvidia-open.yml))
 - `ucore` — headless Fedora CoreOS based on [`ghcr.io/ublue-os/ucore`](https://github.com/ublue-os/ucore), which includes ZFS ([`recipes/recipe-ucore.yml`](recipes/recipe-ucore.yml))
 
 The `ucore` image loads the ZFS module at boot (`files/core/etc/modules-load.d/zfs.conf`). With Secure Boot enabled, first enroll the uBlue signing key with `sudo mokutil --import /etc/pki/akmods/certs/akmods-ublue.der`, otherwise the module won't load. `/` is immutable, so create pools with an explicit mountpoint under `/var`, e.g. `zpool create -m /var/tank tank /dev/sdb`.
+
+The following images are for testing, and disabled from building ([`.github/workflows/build.yml`](.github/workflows/build.yml))
+
+- `cosmic-nvidia-open` — Fedora COSMIC based on `ghcr.io/blue-build/base-images/fedora-cosmic-nvidia-open` ([`recipes/recipe-cosmic-nvidia-open.yml`](recipes/recipe-cosmic-nvidia-open.yml))
+- `cosmic-nightly-nvidia-open` — same as `cosmic-nvidia-open`, but with the COSMIC desktop from the [`ryanabx/cosmic-epoch`](https://copr.fedorainfracloud.org/coprs/ryanabx/cosmic-epoch/) COPR ([`recipes/recipe-cosmic-nightly-nvidia-open.yml`](recipes/recipe-cosmic-nightly-nvidia-open.yml))
 
 > [!WARNING]
 > [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
@@ -18,25 +21,25 @@ To rebase an existing atomic Fedora installation to the latest build, substitute
 
 - First rebase to the unsigned image, to get the proper signing keys and policies installed:
 
-  ```
+  ```bash
   rpm-ostree rebase ostree-unverified-registry:ghcr.io/francoism90/<image>:latest
   ```
 
 - Reboot to complete the rebase:
 
-  ```
+  ```bash
   systemctl reboot
   ```
 
 - Then rebase to the signed image, like so:
 
-  ```
+  ```bash
   rpm-ostree rebase ostree-image-signed:docker://ghcr.io/francoism90/<image>:latest
   ```
 
 - Reboot again to complete the installation
 
-  ```
+  ```bash
   systemctl reboot
   ```
 
