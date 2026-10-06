@@ -1,0 +1,1 @@
+ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="sd*", ATTRS{queue/rotational}=="1", RUN+="/usr/bin/hdparm -B 127 -S 248 $env{DEVNAME}"
