@@ -4,17 +4,6 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
-  # Install fish
-  - type: dnf
-    repos:
-      copr:
-        - atim/starship
-    install:
-      packages:
-        - fish
-        - fastfetch
-        - starship
-
   # Install common packages
   - type: dnf
     install:
@@ -26,6 +15,18 @@ modules:
         - rclone
         - rsync
         - tmux
+        - fish
+        - fastfetch
+        - gh
+
+  # Install starship
+  - type: dnf
+    repos:
+      copr:
+        - atim/starship
+    install:
+      packages:
+        - starship
 
   # Periodic btrfs maintenance, configured via files/system/etc/sysconfig/btrfsmaintenance,
   # and podman auto-updates for both system and user (rootless) containers.
