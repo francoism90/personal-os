@@ -1,0 +1,28 @@
+modules:
+  - type: files
+    files:
+      - source: lenovo
+        destination: / # copies files/lenovo/* into the image's root folder /
+
+  # Lenovo Legion Linux tools (legion_gui, legion_cli, legiond) - https://github.com/johnfanv2/LenovoLegionLinux
+  # Built from francoism90/LenovoLegionLinux (upstream spec + debuginfo fix). The legion_laptop kernel
+  # module isn't included (DKMS can't build in an image); the legiond units only start when it's loaded,
+  # see files/lenovo/usr/lib/systemd/system/legiond*.service.d/.
+  - type: dnf
+    repos:
+      copr:
+        - francoism/lenovolegionlinux
+    install:
+      packages:
+        - python-LenovoLegionLinux
+
+  # The package's %post only prints this step; legiond reads /etc/legion_linux/legiond.ini.
+  - type: script
+    snippets:
+      - cp -r /usr/share/legion_linux /etc/legion_linux
+
+  - type: systemd
+    system:
+      enabled:
+        - legiond.service
+        - legiond-onresume.service

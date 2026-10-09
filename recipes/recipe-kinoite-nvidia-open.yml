@@ -7,4 +7,5 @@ image-version: latest
 modules:
   - from-file: base/common.yml
   - from-file: base/desktop.yml
+  - from-file: base/lenovo.yml
   - from-file: base/kinoite.yml
