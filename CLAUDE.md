@@ -87,7 +87,14 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     `desktop.yml`: the LenovoLegionLinux userspace tools from the `francoism/lenovolegionlinux` copr (built
     from the `francoism90/LenovoLegionLinux` fork, which adds a debuginfo fix to the upstream spec), the
     default config copied to `/etc/legion_linux`, and `legiond`/`legiond-onresume` enabled. The out-of-tree
-    `legion_laptop` driver those units need isn't in the image, since DKMS can't build there.
+    `legion_laptop` driver is compiled during the image build by `files/scripts/legion-laptop.sh` (DKMS
+    can't build in an image): it clones the fork at a pinned commit, builds against the image's own kernel
+    (`kernel-devel` from the repos, falling back to Koji), installs to `/usr/lib/modules/<kver>/extra/`,
+    and removes the build-only packages again. It signs the module with our own MOK key: the private key
+    is the `KMOD_SIGNING_KEY` Actions secret (passed in via `env:` in `build.yml`, mounted only for that
+    script step via the module's `secrets:`); the public cert is committed in the `files/lenovo/` overlay
+    at `/usr/share/legion-laptop/legion-mok.der` and must be enrolled once per machine with
+    `mokutil --import`. Without the secret the module is built unsigned (loads only with Secure Boot off).
   - `kinoite.yml` — KDE/Kinoite-specific bits, currently `default-flatpaks` (system + user scope).
   - `cosmic.yml` — COSMIC-specific bits: the `files` module for the `files/cosmic/` overlay (the
     cosmic-nightlight polkit rule and `/etc/environment` with `COSMIC_DISABLE_DIRECT_SCANOUT`), `dnf` install of the terrapkg COSMIC desktop extras (each
