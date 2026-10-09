@@ -83,8 +83,9 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     and published to `https://francoism90.github.io/flatpaks/index.flatpakrepo`. This repo only consumes
     that remote, so adding or updating one of those apps never touches the image recipes. Keep that block
     after the Flathub one, because the apps' runtimes come from Flathub.
-  - `lenovo.yml` — Lenovo (Legion) laptop support, included by every desktop recipe right after
-    `desktop.yml`: the LenovoLegionLinux userspace tools from the `francoism/lenovolegionlinux` copr (built
+  - `lenovo.yml` — Lenovo (Legion) laptop support, currently **not included by any recipe** (disabled until
+    upstream LenovoLegionLinux supports the Yoga Pro 7 14AHP9; re-enable with `- from-file: base/lenovo.yml`
+    right after `desktop.yml`): the LenovoLegionLinux userspace tools from the `francoism/lenovolegionlinux` copr (built
     from the `francoism90/LenovoLegionLinux` fork, which adds a debuginfo fix to the upstream spec), the
     default config copied to `/etc/legion_linux`, and `legiond`/`legiond-onresume` enabled. The out-of-tree
     `legion_laptop` driver is compiled during the image build by `files/scripts/legion-laptop.sh` (DKMS

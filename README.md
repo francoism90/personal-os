@@ -9,7 +9,7 @@ Custom [BlueBuild](https://blue-build.org/) images, built from the recipes in [`
 
 The `ucore` image loads the ZFS module at boot (`files/core/etc/modules-load.d/zfs.conf`). With Secure Boot enabled, first enroll the uBlue signing key with `sudo mokutil --import /etc/pki/akmods/certs/akmods-ublue.der`, otherwise the module won't load. `/` is immutable, so create pools with an explicit mountpoint under `/var`, e.g. `zpool create -m /var/tank tank /dev/sdb`.
 
-The desktop images include the out-of-tree `legion_laptop` kernel module from [LenovoLegionLinux](https://github.com/johnfanv2/LenovoLegionLinux) (fan control and power modes on Lenovo Legion and some Yoga laptops), built and signed with this repo's own key ([`recipes/base/lenovo.yml`](recipes/base/lenovo.yml)). With Secure Boot enabled, enroll that key once:
+[`recipes/base/lenovo.yml`](recipes/base/lenovo.yml) builds the out-of-tree `legion_laptop` kernel module from [LenovoLegionLinux](https://github.com/johnfanv2/LenovoLegionLinux) (fan control and power modes on Lenovo Legion and some Yoga laptops) and signs it with this repo's own key. It's currently not included in any image, until upstream supports the Yoga Pro 7 14AHP9; add `- from-file: base/lenovo.yml` after `base/desktop.yml` in a recipe to enable it. With Secure Boot enabled, enroll the key once:
 
 1. Run `sudo mokutil --import /usr/share/legion-laptop/legion-mok.der` and choose a one-time password.
 2. Reboot and confirm the enrollment on the blue MOK screen.
