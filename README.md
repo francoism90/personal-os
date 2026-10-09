@@ -9,6 +9,12 @@ Custom [BlueBuild](https://blue-build.org/) images, built from the recipes in [`
 
 The `ucore` image loads the ZFS module at boot (`files/core/etc/modules-load.d/zfs.conf`). With Secure Boot enabled, first enroll the uBlue signing key with `sudo mokutil --import /etc/pki/akmods/certs/akmods-ublue.der`, otherwise the module won't load. `/` is immutable, so create pools with an explicit mountpoint under `/var`, e.g. `zpool create -m /var/tank tank /dev/sdb`.
 
+The desktop images include the out-of-tree `legion_laptop` kernel module from [LenovoLegionLinux](https://github.com/johnfanv2/LenovoLegionLinux) (fan control and power modes on Lenovo Legion and some Yoga laptops), built and signed with this repo's own key ([`recipes/base/lenovo.yml`](recipes/base/lenovo.yml)). With Secure Boot enabled, enroll that key once:
+
+1. Run `sudo mokutil --import /usr/share/legion-laptop/legion-mok.der` and choose a one-time password.
+2. Reboot and confirm the enrollment on the blue MOK screen.
+3. With Secure Boot still on, check `sudo dmesg | grep -i legion` for the `Read embedded controller ID` line.
+
 The following images are for testing, and disabled from building ([`.github/workflows/build.yml`](.github/workflows/build.yml))
 
 - `cosmic-nvidia-open` — Fedora COSMIC based on `ghcr.io/blue-build/base-images/fedora-cosmic-nvidia-open` ([`recipes/recipe-cosmic-nvidia-open.yml`](recipes/recipe-cosmic-nvidia-open.yml))
