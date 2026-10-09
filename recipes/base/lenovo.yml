@@ -1,13 +1,7 @@
 modules:
-  - type: files
-    files:
-      - source: lenovo
-        destination: / # copies files/lenovo/* into the image's root folder /
-
   # Lenovo Legion Linux tools (legion_gui, legion_cli, legiond) - https://github.com/johnfanv2/LenovoLegionLinux
   # Built from francoism90/LenovoLegionLinux (upstream spec + debuginfo fix). The legion_laptop kernel
-  # module isn't included (DKMS can't build in an image); the legiond units only start when it's loaded,
-  # see files/lenovo/usr/lib/systemd/system/legiond*.service.d/.
+  # module isn't included (DKMS can't build in an image), so legiond fails to start without it.
   - type: dnf
     repos:
       copr:

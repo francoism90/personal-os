@@ -86,9 +86,8 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
   - `lenovo.yml` — Lenovo (Legion) laptop support, included by every desktop recipe right after
     `desktop.yml`: the LenovoLegionLinux userspace tools from the `francoism/lenovolegionlinux` copr (built
     from the `francoism90/LenovoLegionLinux` fork, which adds a debuginfo fix to the upstream spec), the
-    default config copied to `/etc/legion_linux`, and `legiond`/`legiond-onresume` enabled. The `files/lenovo/`
-    overlay gates those units on the `legion_laptop` driver (`ConditionPathExists`); that out-of-tree
-    module isn't in the image, since DKMS can't build there.
+    default config copied to `/etc/legion_linux`, and `legiond`/`legiond-onresume` enabled. The out-of-tree
+    `legion_laptop` driver those units need isn't in the image, since DKMS can't build there.
   - `kinoite.yml` — KDE/Kinoite-specific bits, currently `default-flatpaks` (system + user scope).
   - `cosmic.yml` — COSMIC-specific bits: the `files` module for the `files/cosmic/` overlay (the
     cosmic-nightlight polkit rule and `/etc/environment` with `COSMIC_DISABLE_DIRECT_SCANOUT`), `dnf` install of the terrapkg COSMIC desktop extras (each
