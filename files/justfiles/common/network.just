@@ -20,3 +20,27 @@ reset-mac-randomization:
     sudo rm -f /etc/NetworkManager/conf.d/10-mac-randomization.conf
     sudo systemctl reload NetworkManager
     echo "MAC address randomization enabled. Please reconnect to your network for changes to take effect."
+
+# Toggle the NetworkManager Wi-Fi backend between wpa_supplicant (default) and iwd
+toggle-iwd:
+    #!/usr/bin/bash
+    set -euo pipefail
+
+    conf=/etc/NetworkManager/conf.d/20-wifi-backend.conf
+    if [ -f "$conf" ]; then
+        sudo rm -f "$conf"
+        sudo systemctl disable --now iwd.service
+        sudo systemctl enable wpa_supplicant.service
+        sudo systemctl restart NetworkManager
+        echo "Wi-Fi backend switched to wpa_supplicant."
+    else
+        sudo mkdir -p /etc/NetworkManager/conf.d
+        sudo tee "$conf" > /dev/null <<'CONF'
+    [device]
+    wifi.backend=iwd
+    CONF
+        sudo systemctl disable --now wpa_supplicant.service
+        sudo systemctl enable --now iwd.service
+        sudo systemctl restart NetworkManager
+        echo "Wi-Fi backend switched to iwd. Saved NetworkManager connections are kept; reconnect if needed."
+    fi

@@ -17,6 +17,7 @@ modules:
       packages:
         - android-tools
         - firewall-config
+        - iwd # disabled by default; switch with `ujust toggle-iwd`
         - kde-connect
         - ntsync-autoload
     remove:
