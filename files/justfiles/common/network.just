@@ -44,3 +44,22 @@ toggle-iwd:
         sudo systemctl restart NetworkManager
         echo "Wi-Fi backend switched to iwd. Saved NetworkManager connections are kept; reconnect if needed."
     fi
+
+# Set up Tailscale: allow the current user to manage it (e.g. via KTailctl) and log in
+setup-tailscale:
+    #!/usr/bin/bash
+    set -euo pipefail
+
+    sudo systemctl enable --now tailscaled.service
+    sudo tailscale set --operator="${USER}"
+    tailscale up
+    echo "Tailscale is set up. ${USER} can now manage it without sudo (e.g. via KTailctl)."
+
+# Log out of Tailscale and remove the current user as operator
+reset-tailscale:
+    #!/usr/bin/bash
+    set -euo pipefail
+
+    sudo tailscale logout || true
+    sudo tailscale set --operator=
+    echo "Logged out of Tailscale. tailscaled.service was left enabled."

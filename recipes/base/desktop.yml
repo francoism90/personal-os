@@ -11,13 +11,28 @@ modules:
         - firacode-nerd-fonts
         - tela-icon-theme
 
+  # Tailscale - https://tailscale.com/kb/1511/install-fedora-2
+  # (uCore already ships it, so this lives here rather than in common.yml.)
+  - type: dnf
+    repos:
+      files:
+        - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+    install:
+      packages:
+        - tailscale # log in with `blujust setup-tailscale`
+
+  - type: systemd
+    system:
+      enabled:
+        - tailscaled.service
+
   - type: dnf
     install:
       skip-unavailable: true
       packages:
         - android-tools
         - firewall-config
-        - iwd # disabled by default; switch with `ujust toggle-iwd`
+        - iwd # disabled by default; switch with `blujust toggle-iwd`
         - kde-connect
         - ntsync-autoload
     remove:
