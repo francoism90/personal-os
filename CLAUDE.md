@@ -76,7 +76,8 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     `zfs-unlock.service` and `tuned.service`, which uCore ships but disables. It also installs the
     Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
   - `desktop.yml` — desktop-environment-agnostic tweaks: the terra repo (`terra-release`, Nerd fonts; must
-    come before `cosmic.yml`, which installs from it), dnf install/remove, `default-flatpaks` (Flathub
+    come before `cosmic.yml`, which installs from it), Tailscale from its official repo with
+    `tailscaled.service` enabled (uCore already ships it), dnf install/remove, `default-flatpaks` (Flathub
     apps, plus a second `system`-scope `flatpaks` remote for the custom Flatpaks), and `kargs`. The custom
     Flatpaks (`com.visualstudio.code`, `ai.claude.desktop`, `org.freedesktop.Sdk.Extension.podman`) are
     built and signed in a separate repo, [`francoism90/flatpaks`](https://github.com/francoism90/flatpaks),
