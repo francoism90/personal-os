@@ -21,7 +21,7 @@ untracked or gitignored one), never add a file that contains it, and never commi
   hostnames, internal IPs/MACs, ZFS pool or disk serial numbers, Tailscale/Syncthing device IDs.
 
 If a change needs a secret, use a GitHub Actions secret (like `SIGNING_SECRET`) or have it set on the host
-at runtime (e.g. a `ujust` recipe that prompts for it); keep only placeholders in the repo. Before committing,
+at runtime (e.g. a `blujust` recipe that prompts for it); keep only placeholders in the repo. Before committing,
 check the staged diff (`git diff --cached`) for anything like the above, and if a secret was ever pushed,
 treat it as leaked: rotate it, don't just delete the commit.
 
@@ -63,7 +63,7 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     common CLI packages (btrfsmaintenance, hdparm, htop, lm_sensors, rclone, rsync, tmux), a `systemd` module enabling the
     btrfsmaintenance timers (`btrfs-balance`, `btrfs-scrub`; trim is left to `fstrim.timer`; schedules come from
     `files/system/etc/sysconfig/btrfsmaintenance`), `fstrim.timer`, plus `podman-auto-update.timer` in
-    both system and user scope and the user `podman.socket`, and the `justfiles` module that wires up `ujust` recipes.
+    both system and user scope and the user `podman.socket`, and the `justfiles` module that wires up `blujust` recipes.
   - `core.yml` — headless uCore (Fedora CoreOS) bits, used by `recipe-ucore.yml` on top of `common.yml`:
     the `files` module for the `files/core/` overlay (kept apart from `files/system` so desktop images
     don't get it): `etc/modules-load.d/zfs.conf` (uCore ships the signed ZFS kmod but doesn't auto-load
@@ -100,7 +100,7 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
 - `files/scripts/` — shell scripts intended to be run during the build by a recipe's `script` module.
   Convention (see `files/scripts/example.sh`): start with `set -oue pipefail` so the build fails loudly
   on any error.
-- `files/justfiles/*.just` — `just` recipes that become `ujust <recipe-name>` commands inside the built
+- `files/justfiles/*.just` — `just` recipes that become `blujust <recipe-name>` commands inside the built
   image. Wired up via `type: justfiles` modules' `include:` list (see `common.yml`). **Important**:
   `include:` entries are matched by filename against this local directory *first*, falling back to the
   community justfiles collection (ublue-os/bling) if not found locally — this is why entries like

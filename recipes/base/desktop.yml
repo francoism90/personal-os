@@ -19,7 +19,7 @@ modules:
         - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
     install:
       packages:
-        - tailscale # log in with `ujust setup-tailscale`
+        - tailscale # log in with `blujust setup-tailscale`
 
   - type: systemd
     system:
@@ -32,7 +32,7 @@ modules:
       packages:
         - android-tools
         - firewall-config
-        - iwd # disabled by default; switch with `ujust toggle-iwd`
+        - iwd # disabled by default; switch with `blujust toggle-iwd`
         - kde-connect
         - ntsync-autoload
     remove:
