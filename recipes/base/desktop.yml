@@ -1,4 +1,10 @@
 modules:
+  # Desktop-only overlay (files/desktop/), kept apart from files/system so uCore doesn't get it.
+  - type: files
+    files:
+      - source: desktop
+        destination: /
+
   # Terra repo (Fyra Labs) - https://terrapkg.com/
   # Must stay before the recipe's desktop fragment (e.g. cosmic.yml), which installs packages from it.
   - type: dnf

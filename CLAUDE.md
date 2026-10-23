@@ -75,7 +75,9 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     `/etc` copy never shadows image updates). The `systemd` module enables those timers,
     `zfs-unlock.service` and `tuned.service`, which uCore ships but disables. It also installs the
     Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
-  - `desktop.yml` — desktop-environment-agnostic tweaks: the terra repo (`terra-release`, Nerd fonts; must
+  - `desktop.yml` — desktop-environment-agnostic tweaks: the `files` module for the `files/desktop/`
+    overlay (kept apart from `files/system` so uCore doesn't get it; currently a `bluetooth.service`
+    drop-in that starts `bluetoothd` with `--experimental --kernel=<ISO socket UUID>` for LE Audio), the terra repo (`terra-release`, Nerd fonts; must
     come before `cosmic.yml`, which installs from it), Tailscale from its official repo with
     `tailscaled.service` enabled (uCore already ships it), dnf install/remove, `default-flatpaks` (Flathub
     apps, plus a second `system`-scope `flatpaks` remote for the custom Flatpaks), and `kargs`. The custom
