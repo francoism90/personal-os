@@ -67,18 +67,20 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
   - `core.yml` — headless uCore (Fedora CoreOS) bits, used by `recipe-ucore.yml` on top of `common.yml`:
     the `files` module for the `files/core/` overlay (kept apart from `files/system` so desktop images
     don't get it): `etc/modules-load.d/zfs.conf` (uCore ships the signed ZFS kmod but doesn't auto-load
-    it), `etc/sysctl.d/99-sysctl.conf` (server-tuned; overwrites the more conservative desktop copy from
+    it), `usr/lib/sysctl.d/90-personal-os.conf` (server-tuned; overwrites the more conservative desktop copy from
     `files/system`, since `core.yml` runs after `common.yml`), `usr/lib/udev/rules.d/69-hdd.rules`
     (hdparm APM/spindown for HDDs, and `none` instead of Fedora's `bfq` for SATA HDDs, which are the ZFS disks), `zfs-unlock.service` (runs `zfs load-key -a` before `zfs-mount.service`; OpenZFS ships no key-loading
     unit of its own) plus the per-pool `zfs-unlock@<pool>.service` (`load-key -r <pool>`, shipped but not
     enabled; use one or the other) and the `power-profile@*` service/timers that switch tuned profiles by
     time of day. Those units live under `files/core/usr/lib/systemd/system/` (vendor location, so a local
-    `/etc` copy never shadows image updates). The `systemd` module enables those timers,
-    `zfs-unlock.service` and `tuned.service`, which uCore ships but disables. It also installs the
+    `/etc` copy never shadows image updates). The timers are enabled by vendor symlinks in
+    `files/core/usr/lib/systemd/system/timers.target.wants/` (a stale or rebased `/etc` can't drop them);
+    the `systemd` module enables `zfs-unlock.service` and `tuned.service`, which uCore ships but disables. It also installs the
     Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
   - `desktop.yml` — desktop-environment-agnostic tweaks: the `files` module for the `files/desktop/`
     overlay (kept apart from `files/system` so uCore doesn't get it; currently a `bluetooth.service`
-    drop-in that starts `bluetoothd` with `--experimental --kernel=<ISO socket UUID>` for LE Audio), the terra repo (`terra-release`, Nerd fonts; must
+    drop-in that starts `bluetoothd` with `--experimental --kernel=<ISO socket UUID>` for LE Audio, and
+    NetworkManager IPv6 privacy addresses, which a server doesn't want), the terra repo (`terra-release`, Nerd fonts; must
     come before `cosmic.yml`, which installs from it), Tailscale from its official repo with
     `tailscaled.service` enabled (uCore already ships it), dnf install/remove, `default-flatpaks` (Flathub
     apps, plus a second `system`-scope `flatpaks` remote for the custom Flatpaks), and `kargs`. The custom
