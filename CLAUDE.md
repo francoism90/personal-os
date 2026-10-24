@@ -73,9 +73,12 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     unit of its own) plus the per-pool `zfs-unlock@<pool>.service` (`load-key -r <pool>`, shipped but not
     enabled; use one or the other) and the `power-profile@*` service/timers that switch tuned profiles by
     time of day. Those units live under `files/core/usr/lib/systemd/system/` (vendor location, so a local
-    `/etc` copy never shadows image updates). The timers are enabled by vendor symlinks in
-    `files/core/usr/lib/systemd/system/timers.target.wants/` (a stale or rebased `/etc` can't drop them);
-    the `systemd` module enables `zfs-unlock.service` and `tuned.service`, which uCore ships but disables. It also installs the
+    `/etc` copy never shadows image updates). There is no `systemd` module: the timers, `zfs-unlock.service`
+    and `tuned.service` (which uCore ships but disables) are enabled by vendor symlinks in
+    `files/core/usr/lib/systemd/system/*.wants/`, so a stale or rebased `/etc` can't drop them (turn one
+    off on a host with `systemctl mask`). Prefer this over the `systemd` module for anything that must stay
+    enabled, and prefer `/usr/lib` over `/etc` for shipped config wherever the program reads it: ostree
+    keeps a locally modified or deleted `/etc` file forever. It also installs the
     Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
   - `desktop.yml` — desktop-environment-agnostic tweaks: the `files` module for the `files/desktop/`
     overlay (kept apart from `files/system` so uCore doesn't get it; currently a `bluetooth.service`

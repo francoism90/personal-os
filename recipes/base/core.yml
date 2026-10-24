@@ -1,6 +1,13 @@
 modules:
   # Core-only overlay (files/core/), kept apart from files/system so desktop images don't get it.
   # Loads the ZFS kmod at boot: uCore ships it prebuilt and signed, but does not auto-load it.
+  # Units are enabled by vendor symlinks in files/core/usr/lib/systemd/system/*.wants/ instead of a
+  # systemd module, so a stale or rebased /etc can't drop them; mask a unit on the host to turn it off:
+  # - tuned.service: uCore ships tuned but disables it, and tuned-adm needs the daemon running.
+  # - power-profile@{balanced,powersave}.timer: switch tuned profiles by time of day.
+  # - zfs-unlock.service: loads all ZFS encryption keys before zfs-mount.service. Its per-pool sibling
+  #   zfs-unlock@<pool>.service is shipped but not enabled (no pool names known at build time); to use
+  #   it instead, mask zfs-unlock.service and enable the per-pool unit on the host. Don't run both.
   - type: files
     files:
       - source: core
@@ -15,16 +22,3 @@ modules:
         - cockpit-ostree
         - cockpit-ws-selinux
 
-  # Time-based tuned profiles (files/core/usr/lib/systemd/system/power-profile@*). The timers are
-  # enabled by vendor symlinks in files/core/usr/lib/systemd/system/timers.target.wants/, not here,
-  # so a stale /etc can't drop them; mask a timer on the host to turn it off.
-  # uCore ships tuned but disables tuned.service, and tuned-adm needs the daemon running.
-  # Also enables zfs-unlock.service (files/core/usr/lib/systemd/system/zfs-unlock.service), which loads
-  # all ZFS encryption keys before zfs-mount.service. Its per-pool sibling zfs-unlock@<pool>.service is
-  # shipped but not enabled here (no pool names known at build time): enable it on the host instead,
-  # and don't run both, since both load the same keys.
-  - type: systemd
-    system:
-      enabled:
-        - tuned.service
-        - zfs-unlock.service
