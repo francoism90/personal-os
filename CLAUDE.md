@@ -68,7 +68,8 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     the `files` module for the `files/core/` overlay (kept apart from `files/system` so desktop images
     don't get it): `etc/modules-load.d/zfs.conf` (uCore ships the signed ZFS kmod but doesn't auto-load
     it), `etc/sysctl.d/99-sysctl.conf` (server-tuned; overwrites the more conservative desktop copy from
-    `files/system`, since `core.yml` runs after `common.yml`), `zfs-unlock.service` (runs `zfs load-key -a` before `zfs-mount.service`; OpenZFS ships no key-loading
+    `files/system`, since `core.yml` runs after `common.yml`), `usr/lib/udev/rules.d/69-hdd.rules`
+    (hdparm APM/spindown for HDDs, and `none` instead of Fedora's `bfq` for SATA HDDs, which are the ZFS disks), `zfs-unlock.service` (runs `zfs load-key -a` before `zfs-mount.service`; OpenZFS ships no key-loading
     unit of its own) plus the per-pool `zfs-unlock@<pool>.service` (`load-key -r <pool>`, shipped but not
     enabled; use one or the other) and the `power-profile@*` service/timers that switch tuned profiles by
     time of day. Those units live under `files/core/usr/lib/systemd/system/` (vendor location, so a local

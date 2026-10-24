@@ -1,0 +1,6 @@
+# Spinning disks: APM level 127 (lowest that still allows spindown) and spin down after 2 hours idle.
+ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="sd*", ATTRS{queue/rotational}=="1", RUN+="/usr/bin/hdparm -B 127 -S 248 $env{DEVNAME}"
+
+# Fedora's 60-block-scheduler.rules puts bfq on every sd* disk. ZFS does its own I/O scheduling,
+# so its SATA HDDs get none; USB disks (xfs/ext4) keep bfq.
+ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", ENV{ID_BUS}=="ata", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="none"
