@@ -6,8 +6,8 @@ disable-mac-randomization:
     sudo mkdir -p /etc/NetworkManager/conf.d
     sudo tee /etc/NetworkManager/conf.d/10-mac-randomization.conf > /dev/null <<'EOF'
     [connection-mac-randomization]
-    ethernet.cloned-mac-address=stable
-    wifi.cloned-mac-address=stable
+    ethernet.cloned-mac-address=permanent
+    wifi.cloned-mac-address=permanent
     EOF
     sudo systemctl reload NetworkManager
     echo "MAC address randomization disabled. Please reconnect to your network for changes to take effect."
