@@ -42,3 +42,7 @@ jobs:
 
           # enabled by default, disable if your image is small and you want faster builds
           maximize_build_space: true
+
+          # rechunk the finished image by content (roughly per package), so unchanged files keep
+          # identical layers across builds and updates only download what actually changed
+          chunkah: true

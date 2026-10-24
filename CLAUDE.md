@@ -31,9 +31,14 @@ treat it as leaked: rotate it, don't just delete the commit.
   itself at build time (e.g. the `justfiles` module below has `validate: true`, which checks `just`
   syntax during the build).
 - Builds run via `.github/workflows/build.yml`, using the reusable `blue-build/github-action`, matrixed
-  over `recipes/recipe-*.yml` (currently `recipe-kinoite-nvidia-open.yml`,
-  `recipe-cosmic-nvidia-open.yml`, `recipe-cosmic-nightly-nvidia-open.yml` and `recipe-ucore.yml`). Triggers: push (except docs-only changes), pull_request, a daily
+  over `recipes/recipe-*.yml` (currently `recipe-kinoite-nvidia-open.yml` and `recipe-ucore.yml`; the
+  `recipe-cosmic-nvidia-open.yml` and `recipe-cosmic-nightly-nvidia-open.yml` entries are commented out, so
+  those images aren't built). Triggers: push (except docs-only changes), pull_request, a daily
   06:00 UTC schedule, and manual `workflow_dispatch`.
+- The action runs with `chunkah: true`: the finished image is rechunked by content, so unchanged files keep
+  identical layers across builds and an update only downloads what changed. Without it, every BlueBuild
+  module layer gets a new digest on each build (~270 MB for ucore, ~580 MB for kinoite, re-downloaded
+  daily). Don't combine it with the action's other rechunkers (`rechunk`, `build_chunked_oci`).
 - Images are signed with cosign; the public key lives at `cosign.pub`, the private key is the
   `SIGNING_SECRET` GitHub Actions secret. Never commit `cosign.key`/`cosign.private` (already gitignored).
 - The only real way to fully verify a change "works" is to open a PR and let CI build the image, or read the
