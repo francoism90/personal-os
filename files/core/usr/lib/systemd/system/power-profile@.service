@@ -1,5 +1,8 @@
 [Unit]
 Description=Set Power Profile
+# tuned-adm only talks to the running daemon.
+Requires=tuned.service
+After=tuned.service
 
 [Service]
 Type=oneshot

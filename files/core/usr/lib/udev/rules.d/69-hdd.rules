@@ -2,5 +2,6 @@
 ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="sd*", ATTRS{queue/rotational}=="1", RUN+="/usr/bin/hdparm -B 127 -S 248 $env{DEVNAME}"
 
 # Fedora's 60-block-scheduler.rules puts bfq on every sd* disk. ZFS does its own I/O scheduling,
-# so its SATA HDDs get none; USB disks (xfs/ext4) keep bfq.
-ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", ENV{ID_BUS}=="ata", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="none"
+# so its SATA HDDs get none; USB disks (xfs/ext4) keep bfq. Matched on ID_PATH, not ID_BUS: USB-SATA
+# bridges report ID_BUS=ata too, but only directly attached disks have an "-ata-" path.
+ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", ENV{ID_PATH}=="*-ata-*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="none"
