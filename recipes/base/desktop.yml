@@ -53,7 +53,6 @@ modules:
           title: Flathub (system)
         install:
           - com.bitwarden.desktop
-          - com.brave.Browser
           - com.github.tchx84.Flatseal
           - com.github.wwmm.easyeffects
           - com.ktechpit.whatsie
@@ -79,9 +78,20 @@ modules:
           title: francoism90 Flatpaks
           url: https://francoism90.github.io/flatpaks/index.flatpakrepo
         install:
-          - ai.claude.desktop
           - com.visualstudio.code
           - org.freedesktop.Sdk.Extension.podman
+
+      # FlatPark (GPG-signed remote): repackaged vendor builds, e.g. Claude Desktop from Anthropic's .deb.
+      # Must stay after the Flathub block: the runtimes these apps need come from Flathub.
+      - scope: system
+        notify: false
+        repo:
+          name: flatpark
+          title: FlatPark
+          url: https://dl.flatpark.org/flatpark.flatpakrepo
+        install:
+          - com.anthropic.ClaudeDesktop
+          - com.brave.Origin
 
   - type: justfiles
     validate: true

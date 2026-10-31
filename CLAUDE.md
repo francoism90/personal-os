@@ -92,12 +92,14 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     NetworkManager IPv6 privacy addresses, which a server doesn't want), the terra repo (`terra-release`, Nerd fonts; must
     come before `cosmic.yml`, which installs from it), Tailscale from its official repo with
     `tailscaled.service` enabled (uCore already ships it), dnf install/remove, `default-flatpaks` (Flathub
-    apps, plus a second `system`-scope `flatpaks` remote for the custom Flatpaks), and `kargs`. The custom
-    Flatpaks (`com.visualstudio.code`, `ai.claude.desktop`, `org.freedesktop.Sdk.Extension.podman`) are
+    apps, a second `system`-scope `flatpaks` remote for the custom Flatpaks, and a third `system`-scope
+    `flatpark` remote, `https://dl.flatpark.org/flatpark.flatpakrepo`, for `com.anthropic.ClaudeDesktop` and
+    `com.brave.Origin`), and `kargs`. The custom
+    Flatpaks (`com.visualstudio.code`, `org.freedesktop.Sdk.Extension.podman`) are
     built and signed in a separate repo, [`francoism90/flatpaks`](https://github.com/francoism90/flatpaks),
     and published to `https://francoism90.github.io/flatpaks/index.flatpakrepo`. This repo only consumes
     that remote, so adding or updating one of those apps never touches the image recipes. Keep that block
-    after the Flathub one, because the apps' runtimes come from Flathub.
+    and the FlatPark one after the Flathub one, because the apps' runtimes come from Flathub.
   - `kinoite.yml` — KDE/Kinoite-specific bits, currently `default-flatpaks` (system + user scope).
   - `cosmic.yml` — COSMIC-specific bits: the `files` module for the `files/cosmic/` overlay (the
     cosmic-nightlight polkit rule and `/etc/environment` with `COSMIC_DISABLE_DIRECT_SCANOUT`), `dnf` install of the terrapkg COSMIC desktop extras (each
