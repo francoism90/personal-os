@@ -12,6 +12,7 @@ modules:
           title: Flathub (system)
         install:
           - io.github.DenysMb.Kontainer
+          - org.fkoehler.KTailctl
           - org.gtk.Gtk3theme.Breeze
           - org.kde.elisa
           - org.kde.falkon

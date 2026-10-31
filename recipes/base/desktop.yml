@@ -67,7 +67,6 @@ modules:
           - io.github.pwr_solaar.solaar
           - md.obsidian.Obsidian
           - org.bleachbit.BleachBit
-          - org.fkoehler.KTailctl
 
       # Custom builds (GPG-signed remote), sources at https://github.com/francoism90/flatpaks.
       # Must stay after the Flathub block: the runtimes these apps need come from Flathub.
@@ -78,7 +77,6 @@ modules:
           title: francoism90 Flatpaks
           url: https://francoism90.github.io/flatpaks/index.flatpakrepo
         install:
-          - com.visualstudio.code
           - org.freedesktop.Sdk.Extension.podman
 
       # FlatPark (GPG-signed remote): repackaged vendor builds, e.g. Claude Desktop from Anthropic's .deb.
@@ -92,6 +90,7 @@ modules:
         install:
           - com.anthropic.ClaudeDesktop
           - com.brave.Origin
+          - com.visualstudio.code
 
   - type: justfiles
     validate: true
