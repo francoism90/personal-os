@@ -36,3 +36,14 @@ modules:
           - org.kde.kwrite
           - org.kde.okular
           - org.kde.optiimage
+
+      # Kwi nightly (GPG-signed remote) - https://invent.kde.org/utilities/kwi#nightly-packages
+      # Must stay after the Flathub block: its KDE runtime comes from Flathub.
+      - scope: system
+        notify: false
+        repo:
+          name: kwi-nightly
+          title: Kwi Nightly
+          url: https://cdn.kde.org/flatpak/kwi-nightly/kwi-nightly.flatpakrepo
+        install:
+          - org.kde.kwi

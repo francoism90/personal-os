@@ -102,7 +102,9 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     and the FlatPark one after the Flathub one, because the apps' runtimes come from Flathub.
   - `kinoite.yml` — KDE/Kinoite-specific bits: a temporary `script` module running a full `dnf upgrade`
     (terra, kernel and NVIDIA excluded) to fix a partial Plasma 6.8 upgrade in the base image, then
-    `default-flatpaks` (system + user scope).
+    `default-flatpaks` (system + user scope), including a `system`-scope `kwi-nightly` remote
+    (`https://cdn.kde.org/flatpak/kwi-nightly/kwi-nightly.flatpakrepo`) for KDE's nightly `org.kde.kwi`
+    terminal, kept after the Flathub block since its runtime comes from Flathub.
   - `cosmic.yml` — COSMIC-specific bits: the `files` module for the `files/cosmic/` overlay (the
     cosmic-nightlight polkit rule and `/etc/environment` with `COSMIC_DISABLE_DIRECT_SCANOUT`), `dnf` install of the terrapkg COSMIC desktop extras (each
     subdirectory under `anda/desktops/cosmic` in `terrapkg/packages` is its own package, not one bundle),
