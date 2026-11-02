@@ -55,11 +55,12 @@ setup-tailscale:
     tailscale up
     echo "Tailscale is set up. ${USER} can now manage it without sudo (e.g. via KTailctl)."
 
-# Log out of Tailscale and remove the current user as operator
+# Log out of Tailscale, remove the current user as operator and disable tailscaled
 reset-tailscale:
     #!/usr/bin/bash
     set -euo pipefail
 
     sudo tailscale logout || true
-    sudo tailscale set --operator=
-    echo "Logged out of Tailscale. tailscaled.service was left enabled."
+    sudo tailscale set --operator= || true
+    sudo systemctl disable --now tailscaled.service
+    echo "Logged out of Tailscale and disabled tailscaled.service."

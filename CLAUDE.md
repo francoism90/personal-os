@@ -90,8 +90,9 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     overlay (kept apart from `files/system` so uCore doesn't get it; currently a `bluetooth.service`
     drop-in that starts `bluetoothd` with `--experimental --kernel=<ISO socket UUID>` for LE Audio, and
     NetworkManager IPv6 privacy addresses, which a server doesn't want), the terra repo (`terra-release`, Nerd fonts; must
-    come before `cosmic.yml`, which installs from it), Tailscale from its official repo with
-    `tailscaled.service` enabled (uCore already ships it), dnf install/remove, `default-flatpaks` (Flathub
+    come before `cosmic.yml`, which installs from it), Tailscale from its official repo
+    (uCore already ships it; `tailscaled.service` isn't enabled in the image, `blujust setup-tailscale`
+    enables it), dnf install/remove, `default-flatpaks` (Flathub
     apps, a second `system`-scope `flatpaks` remote for the custom Flatpaks, and a third `system`-scope
     `flatpark` remote, `https://dl.flatpark.org/flatpark.flatpakrepo`, for `com.anthropic.ClaudeDesktop` and
     `com.brave.Origin`), and `kargs`. The custom
