@@ -1,4 +1,11 @@
 modules:
+  # TEMPORARY: the base image ships a partial Plasma 6.8 upgrade (plasma-workspace 6.8.2, kwin 6.7.5).
+  # Bring everything in sync from Fedora repos. Kernel/NVIDIA are excluded so the prebuilt kmod keeps matching.
+  # Remove once ghcr.io/blue-build/base-images ships a consistent Plasma.
+  - type: script
+    snippets:
+      - dnf -y upgrade --refresh --disablerepo='terra*' --exclude='kernel*' --exclude='*nvidia*' --exclude='*kmod*'
+
   - type: default-flatpaks
     configurations:
       - scope: system
