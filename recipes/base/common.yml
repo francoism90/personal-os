@@ -5,13 +5,13 @@ modules:
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
   # Packages neither base ships. Aurora and uCore both already have lm_sensors, rclone and tmux; the rest
-  # lives in the image's own fragment: core.yml (fish, fastfetch, htop, gh, starship) or desktop.yml (hdparm).
+  # lives in the image's own fragment: core.yml (fish, fastfetch, htop, rsync, gh, starship) or desktop.yml (hdparm).
+  # (Aurora gets rsync from its Fedora KDE base.)
   # On Aurora, get gh and starship from Homebrew: `brew install gh starship`.
   - type: dnf
     install:
       packages:
         - btrfsmaintenance
-        - rsync
 
   # Periodic btrfs maintenance, configured via files/system/etc/sysconfig/btrfsmaintenance,
   # and podman auto-updates for both system and user (rootless) containers.

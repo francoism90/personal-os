@@ -65,8 +65,8 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
 - `recipes/base/*.yml` — reusable module fragments shared across recipes, each just a `modules:` list
   fragment (not standalone recipes). Current split:
   - `common.yml` — applies to every image: the `files` module (see below),
-    only the CLI packages neither base already ships (btrfsmaintenance, rsync; packages one base lacks go in that
-    image's own fragment: fish/fastfetch/htop/gh plus starship from the `atim/starship` copr in `core.yml` (on Aurora they come from Homebrew), hdparm in `desktop.yml`, and the full set in `cosmic.yml`, whose
+    only the CLI packages neither base already ships (btrfsmaintenance; packages one base lacks go in that
+    image's own fragment: fish/fastfetch/htop/rsync/gh plus starship from the `atim/starship` copr in `core.yml` (on Aurora they come from Homebrew), hdparm in `desktop.yml`, and the full set in `cosmic.yml`, whose
     Fedora base has none of them), a `systemd` module enabling the
     btrfsmaintenance timers (`btrfs-balance`, `btrfs-scrub`; trim is left to `fstrim.timer`; schedules come from
     `files/system/etc/sysconfig/btrfsmaintenance`), `fstrim.timer`, plus `podman-auto-update.timer` in
@@ -87,13 +87,13 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
     off on a host with `systemctl mask`). Prefer this over the `systemd` module for anything that must stay
     enabled, and prefer `/usr/lib` over `/etc` for shipped config wherever the program reads it: ostree
     keeps a locally modified or deleted `/etc` file forever. It also installs the
-    fish/fastfetch/htop and the Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
+    fish/fastfetch/htop/rsync and the Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
   - `desktop.yml` — desktop-environment-agnostic tweaks: the `files` module for the `files/desktop/`
     overlay (kept apart from `files/system` so uCore doesn't get it; currently a `bluetooth.service`
     drop-in that starts `bluetoothd` with `--experimental --kernel=<ISO socket UUID>` for LE Audio, and
-    NetworkManager IPv6 privacy addresses, which a server doesn't want), the terra repo (`terra-release`, Nerd fonts; must
-    come before `cosmic.yml`, which installs from it; also needed on Aurora for `firacode-nerd-fonts`),
-    dnf install (things Aurora doesn't already ship; Aurora already has Tailscale and drops Firefox), `default-flatpaks` (Flathub
+    NetworkManager IPv6 privacy addresses, which a server doesn't want),
+    dnf install (things Aurora doesn't already ship; Aurora already has terra, Tailscale and drops Firefox; don't add the
+    terra repo here, Aurora ships `/usr/share/dnf5/repos.d/terra.repo` and a second `terra` repo id fails dnf), `default-flatpaks` (Flathub
     apps, a second `system`-scope `flatpaks` remote for the custom Flatpaks, and a third `system`-scope
     `flatpark` remote, `https://dl.flatpark.org/flatpark.flatpakrepo`, for `com.anthropic.ClaudeDesktop` and
     `com.brave.Origin`), and `kargs`. The custom
@@ -108,7 +108,8 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
   - `cosmic.yml` — COSMIC-specific bits: the `files` module for the `files/cosmic/` overlay (the
     cosmic-nightlight polkit rule and `/etc/environment` with `COSMIC_DISABLE_DIRECT_SCANOUT`), Tailscale from its official repo plus the
     Firefox removal (the Fedora COSMIC base, unlike Aurora/uCore, needs both; `tailscaled.service` isn't enabled,
-    `blujust setup-tailscale` enables it), `dnf` install of the terrapkg COSMIC desktop extras (each
+    `blujust setup-tailscale` enables it), the terra repo (`terra-release`, `firacode-nerd-fonts`; on Aurora that font
+    comes from `ujust install-fonts` instead), `dnf` install of the terrapkg COSMIC desktop extras (each
     subdirectory under `anda/desktops/cosmic` in `terrapkg/packages` is its own package, not one bundle),
     plus `default-flatpaks` (GTK/libcosmic-friendly Flathub apps, and a `system`-scope `cosmic` repo
     pointing at `https://apt.pop-os.org/cosmic/cosmic.flatpakrepo`).
