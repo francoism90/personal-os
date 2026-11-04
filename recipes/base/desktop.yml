@@ -9,7 +9,6 @@ modules:
     install:
       skip-unavailable: true
       packages:
-        - android-tools
         - ntsync-autoload
 
   - type: default-flatpaks
