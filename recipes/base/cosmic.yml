@@ -5,6 +5,18 @@ modules:
       - source: cosmic
         destination: /
 
+  # Terra repo (Fyra Labs) - https://terrapkg.com/
+  # COSMIC-only: Aurora already ships terra (/usr/share/dnf5/repos.d/terra.repo), and adding it twice fails dnf.
+  # Must stay before the dnf install below, which pulls the cosmic-ext packages from it.
+  - type: dnf
+    repos:
+      files:
+        - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
+    install:
+      packages:
+        - terra-release
+        - firacode-nerd-fonts # on Aurora: ujust install-fonts (Homebrew cask)
+
   # Tailscale - https://tailscale.com/kb/1511/install-fedora-2
   # Aurora and uCore already ship it, so only the COSMIC image (Fedora base) needs it.
   - type: dnf
