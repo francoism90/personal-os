@@ -22,7 +22,7 @@ reset-mac-randomization:
     echo "MAC address randomization enabled. Please reconnect to your network for changes to take effect."
 
 # Toggle the NetworkManager Wi-Fi backend between wpa_supplicant (default) and iwd
-toggle-iwd:
+switch-iwd:
     #!/usr/bin/bash
     set -euo pipefail
 

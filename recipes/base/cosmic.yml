@@ -5,6 +5,20 @@ modules:
       - source: cosmic
         destination: /
 
+  # Tailscale - https://tailscale.com/kb/1511/install-fedora-2
+  # Aurora and uCore already ship it, so only the COSMIC image (Fedora base) needs it.
+  - type: dnf
+    repos:
+      files:
+        - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+    install:
+      packages:
+        - tailscale # enable and log in with `blujust setup-tailscale`
+    remove:
+      packages:
+        - firefox # Aurora already drops it; the Fedora COSMIC base doesn't
+        - firefox-langpacks
+
   - type: dnf
     install:
       packages:

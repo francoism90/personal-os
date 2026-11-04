@@ -68,7 +68,7 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     common CLI packages (btrfsmaintenance, hdparm, htop, lm_sensors, rclone, rsync, tmux), a `systemd` module enabling the
     btrfsmaintenance timers (`btrfs-balance`, `btrfs-scrub`; trim is left to `fstrim.timer`; schedules come from
     `files/system/etc/sysconfig/btrfsmaintenance`), `fstrim.timer`, plus `podman-auto-update.timer` in
-    both system and user scope and the user `podman.socket`, and the `justfiles` module that wires up the `files/justfiles` recipes (on Universal Blue bases, i.e. Aurora and uCore, they're imported into `ujust` via `60-custom.just`; Aurora sets `allow-duplicate-recipes`, so a recipe of ours with the same name, like `toggle-iwd`, overrides Aurora's).
+    both system and user scope and the user `podman.socket`, and the `justfiles` module that wires up the `files/justfiles` recipes (on Universal Blue bases, i.e. Aurora and uCore, they're imported into `ujust` via `60-custom.just`; Aurora sets `allow-duplicate-recipes`, so a recipe of ours with the same name as one of Aurora's silently overrides it; avoid reusing Aurora's names, which is why ours is `switch-iwd`, not `toggle-iwd`).
   - `core.yml` — headless uCore (Fedora CoreOS) bits, used by `recipe-ucore.yml` on top of `common.yml`:
     the `files` module for the `files/core/` overlay (kept apart from `files/system` so desktop images
     don't get it): `etc/modules-load.d/zfs.conf` (uCore ships the signed ZFS kmod but doesn't auto-load
@@ -90,9 +90,8 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     overlay (kept apart from `files/system` so uCore doesn't get it; currently a `bluetooth.service`
     drop-in that starts `bluetoothd` with `--experimental --kernel=<ISO socket UUID>` for LE Audio, and
     NetworkManager IPv6 privacy addresses, which a server doesn't want), the terra repo (`terra-release`, Nerd fonts; must
-    come before `cosmic.yml`, which installs from it), Tailscale from its official repo
-    (uCore already ships it; `tailscaled.service` isn't enabled in the image, `ujust setup-tailscale`
-    enables it), dnf install/remove, `default-flatpaks` (Flathub
+    come before `cosmic.yml`, which installs from it; also needed on Aurora for `firacode-nerd-fonts`),
+    dnf install (things Aurora doesn't already ship; Aurora already has Tailscale and drops Firefox), `default-flatpaks` (Flathub
     apps, a second `system`-scope `flatpaks` remote for the custom Flatpaks, and a third `system`-scope
     `flatpark` remote, `https://dl.flatpark.org/flatpark.flatpakrepo`, for `com.anthropic.ClaudeDesktop` and
     `com.brave.Origin`), and `kargs`. The custom
@@ -105,7 +104,9 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     (`https://cdn.kde.org/flatpak/kwi-nightly/kwi-nightly.flatpakrepo`) for KDE's nightly `org.kde.kwi`
     terminal, kept after the Flathub block since its runtime comes from Flathub.
   - `cosmic.yml` — COSMIC-specific bits: the `files` module for the `files/cosmic/` overlay (the
-    cosmic-nightlight polkit rule and `/etc/environment` with `COSMIC_DISABLE_DIRECT_SCANOUT`), `dnf` install of the terrapkg COSMIC desktop extras (each
+    cosmic-nightlight polkit rule and `/etc/environment` with `COSMIC_DISABLE_DIRECT_SCANOUT`), Tailscale from its official repo plus the
+    Firefox removal (the Fedora COSMIC base, unlike Aurora/uCore, needs both; `tailscaled.service` isn't enabled,
+    `blujust setup-tailscale` enables it), `dnf` install of the terrapkg COSMIC desktop extras (each
     subdirectory under `anda/desktops/cosmic` in `terrapkg/packages` is its own package, not one bundle),
     plus `default-flatpaks` (GTK/libcosmic-friendly Flathub apps, and a `system`-scope `cosmic` repo
     pointing at `https://apt.pop-os.org/cosmic/cosmic.flatpakrepo`).
