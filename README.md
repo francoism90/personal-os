@@ -4,7 +4,7 @@ Custom [BlueBuild](https://blue-build.org/) images, built from the recipes in [`
 
 ## Images
 
-- `kinoite-nvidia-open` — Fedora Kinoite based on `ghcr.io/blue-build/base-images/fedora-kinoite-nvidia-open` ([`recipes/recipe-kinoite-nvidia-open.yml`](recipes/recipe-kinoite-nvidia-open.yml))
+- `aurora-nvidia-open` — KDE Plasma based on [Aurora](https://github.com/ublue-os/aurora) (`ghcr.io/ublue-os/aurora-nvidia-open:latest`) ([`recipes/recipe-aurora-nvidia-open.yml`](recipes/recipe-aurora-nvidia-open.yml)). With Secure Boot enabled, enroll the uBlue signing key first (`ujust enroll-secure-boot-key` on a uBlue image, or `sudo mokutil --import` the [akmods public key](https://github.com/ublue-os/akmods/raw/main/certs/public_key.der) beforehand), otherwise the NVIDIA module won't load.
 - `ucore` — headless Fedora CoreOS based on [`ghcr.io/ublue-os/ucore`](https://github.com/ublue-os/ucore), which includes ZFS ([`recipes/recipe-ucore.yml`](recipes/recipe-ucore.yml))
 
 The `ucore` image loads the ZFS module at boot (`files/core/etc/modules-load.d/zfs.conf`). With Secure Boot enabled, first enroll the uBlue signing key with `sudo mokutil --import /etc/pki/akmods/certs/akmods-ublue.der`, otherwise the module won't load. `/` is immutable, so create pools with an explicit mountpoint under `/var`, e.g. `zpool create -m /var/tank tank /dev/sdb`.
@@ -17,7 +17,7 @@ The following images are for testing, and disabled from building ([`.github/work
 > [!WARNING]
 > [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
 
-To rebase an existing atomic Fedora installation to the latest build, substitute `<image>` below with the image name from the [Images](#images) list (e.g. `kinoite-nvidia-open`):
+To rebase an existing atomic Fedora installation to the latest build, substitute `<image>` below with the image name from the [Images](#images) list (e.g. `aurora-nvidia-open`):
 
 - First rebase to the unsigned image, to get the proper signing keys and policies installed:
 
@@ -47,7 +47,7 @@ The `latest` tag will automatically point to the latest build. That build will s
 
 ### Switching between images
 
-If you're already running one of these (signed) images, the signing keys and policies are in place, so you can skip the unsigned rebase and switch directly with `bootc`, e.g. from `cosmic-nightly-nvidia-open` to `kinoite-nvidia-open`:
+If you're already running one of these (signed) images, the signing keys and policies are in place, so you can skip the unsigned rebase and switch directly with `bootc`, e.g. from `cosmic-nightly-nvidia-open` to `aurora-nvidia-open`:
 
 ```bash
 sudo bootc switch --enforce-container-sigpolicy ghcr.io/francoism90/<image>:latest

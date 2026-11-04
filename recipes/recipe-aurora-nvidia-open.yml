@@ -1,8 +1,8 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-name: kinoite-nvidia-open
-description: Kinoite with nvidia-open
-base-image: ghcr.io/blue-build/base-images/fedora-kinoite-nvidia-open
+name: aurora-nvidia-open
+description: Aurora with nvidia-open
+base-image: ghcr.io/ublue-os/aurora-nvidia-open
 image-version: latest
 modules:
   - from-file: base/common.yml

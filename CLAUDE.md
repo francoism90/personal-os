@@ -21,7 +21,7 @@ untracked or gitignored one), never add a file that contains it, and never commi
   hostnames, internal IPs/MACs, ZFS pool or disk serial numbers, Tailscale/Syncthing device IDs.
 
 If a change needs a secret, use a GitHub Actions secret (like `SIGNING_SECRET`) or have it set on the host
-at runtime (e.g. a `blujust` recipe that prompts for it); keep only placeholders in the repo. Before committing,
+at runtime (e.g. a `ujust` recipe that prompts for it); keep only placeholders in the repo. Before committing,
 check the staged diff (`git diff --cached`) for anything like the above, and if a secret was ever pushed,
 treat it as leaked: rotate it, don't just delete the commit.
 
@@ -31,13 +31,13 @@ treat it as leaked: rotate it, don't just delete the commit.
   itself at build time (e.g. the `justfiles` module below has `validate: true`, which checks `just`
   syntax during the build).
 - Builds run via `.github/workflows/build.yml`, using the reusable `blue-build/github-action`, matrixed
-  over `recipes/recipe-*.yml` (currently `recipe-kinoite-nvidia-open.yml` and `recipe-ucore.yml`; the
+  over `recipes/recipe-*.yml` (currently `recipe-aurora-nvidia-open.yml` (based on `ghcr.io/ublue-os/aurora-nvidia-open:latest`) and `recipe-ucore.yml`; the
   `recipe-cosmic-nvidia-open.yml` and `recipe-cosmic-nightly-nvidia-open.yml` entries are commented out, so
   those images aren't built). Triggers: push (except docs-only changes), pull_request, a daily
   06:00 UTC schedule, and manual `workflow_dispatch`.
 - The action runs with `chunkah: true`: the finished image is rechunked by content, so unchanged files keep
   identical layers across builds and an update only downloads what changed. Without it, every BlueBuild
-  module layer gets a new digest on each build (~270 MB for ucore, ~580 MB for kinoite, re-downloaded
+  module layer gets a new digest on each build (~270 MB for ucore, ~580 MB for the KDE image, re-downloaded
   daily). Don't combine it with the action's other rechunkers (`rechunk`, `build_chunked_oci`).
 - Images are signed with cosign; the public key lives at `cosign.pub`, the private key is the
   `SIGNING_SECRET` GitHub Actions secret. Never commit `cosign.key`/`cosign.private` (already gitignored).
@@ -68,7 +68,7 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     common CLI packages (btrfsmaintenance, hdparm, htop, lm_sensors, rclone, rsync, tmux), a `systemd` module enabling the
     btrfsmaintenance timers (`btrfs-balance`, `btrfs-scrub`; trim is left to `fstrim.timer`; schedules come from
     `files/system/etc/sysconfig/btrfsmaintenance`), `fstrim.timer`, plus `podman-auto-update.timer` in
-    both system and user scope and the user `podman.socket`, and the `justfiles` module that wires up `blujust` recipes.
+    both system and user scope and the user `podman.socket`, and the `justfiles` module that wires up the `files/justfiles` recipes (on Universal Blue bases, i.e. Aurora and uCore, they're imported into `ujust` via `60-custom.just`; Aurora sets `allow-duplicate-recipes`, so a recipe of ours with the same name, like `toggle-iwd`, overrides Aurora's).
   - `core.yml` — headless uCore (Fedora CoreOS) bits, used by `recipe-ucore.yml` on top of `common.yml`:
     the `files` module for the `files/core/` overlay (kept apart from `files/system` so desktop images
     don't get it): `etc/modules-load.d/zfs.conf` (uCore ships the signed ZFS kmod but doesn't auto-load
@@ -91,7 +91,7 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     drop-in that starts `bluetoothd` with `--experimental --kernel=<ISO socket UUID>` for LE Audio, and
     NetworkManager IPv6 privacy addresses, which a server doesn't want), the terra repo (`terra-release`, Nerd fonts; must
     come before `cosmic.yml`, which installs from it), Tailscale from its official repo
-    (uCore already ships it; `tailscaled.service` isn't enabled in the image, `blujust setup-tailscale`
+    (uCore already ships it; `tailscaled.service` isn't enabled in the image, `ujust setup-tailscale`
     enables it), dnf install/remove, `default-flatpaks` (Flathub
     apps, a second `system`-scope `flatpaks` remote for the custom Flatpaks, and a third `system`-scope
     `flatpark` remote, `https://dl.flatpark.org/flatpark.flatpakrepo`, for `com.anthropic.ClaudeDesktop` and
@@ -101,9 +101,7 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     and published to `https://francoism90.github.io/flatpaks/index.flatpakrepo`. This repo only consumes
     that remote, so adding or updating one of those apps never touches the image recipes. Keep that block
     and the FlatPark one after the Flathub one, because the apps' runtimes come from Flathub.
-  - `kinoite.yml` — KDE/Kinoite-specific bits: a temporary `script` module running a full `dnf upgrade`
-    (terra, kernel and NVIDIA excluded) to fix a partial Plasma 6.8 upgrade in the base image, then
-    `default-flatpaks` (system + user scope), including a `system`-scope `kwi-nightly` remote
+  - `kinoite.yml` — KDE-specific bits, used by the Aurora recipe (Aurora handles Plasma/Qt consistency itself with versionlocks, so don't add blanket `dnf upgrade` steps): `default-flatpaks` (system + user scope), including a `system`-scope `kwi-nightly` remote
     (`https://cdn.kde.org/flatpak/kwi-nightly/kwi-nightly.flatpakrepo`) for KDE's nightly `org.kde.kwi`
     terminal, kept after the Flathub block since its runtime comes from Flathub.
   - `cosmic.yml` — COSMIC-specific bits: the `files` module for the `files/cosmic/` overlay (the
@@ -121,7 +119,7 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
 - `files/scripts/` — shell scripts intended to be run during the build by a recipe's `script` module.
   Convention (see `files/scripts/example.sh`): start with `set -oue pipefail` so the build fails loudly
   on any error.
-- `files/justfiles/*.just` — `just` recipes that become `blujust <recipe-name>` commands inside the built
+- `files/justfiles/*.just` — `just` recipes that become `ujust <recipe-name>` commands (`blujust` on non-uBlue bases) inside the built
   image. Wired up via `type: justfiles` modules' `include:` list (see `common.yml`). **Important**:
   `include:` entries are matched by filename against this local directory *first*, falling back to the
   community justfiles collection (ublue-os/bling) if not found locally — this is why entries like
