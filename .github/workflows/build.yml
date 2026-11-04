@@ -26,7 +26,7 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - recipe-kinoite-nvidia-open.yml
+          - recipe-aurora-nvidia-open.yml
           - recipe-ucore.yml
           # - recipe-cosmic-nvidia-open.yml
           # - recipe-cosmic-nightly-nvidia-open.yml

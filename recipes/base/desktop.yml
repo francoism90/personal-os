@@ -16,29 +16,14 @@ modules:
         - terra-release
         - firacode-nerd-fonts
 
-  # Tailscale - https://tailscale.com/kb/1511/install-fedora-2
-  # (uCore already ships it, so this lives here rather than in common.yml.)
-  - type: dnf
-    repos:
-      files:
-        - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
-    install:
-      packages:
-        - tailscale # enable and log in with `blujust setup-tailscale`
-
   - type: dnf
     install:
       skip-unavailable: true
       packages:
         - android-tools
-        - firewall-config
-        - iwd # disabled by default; switch with `blujust toggle-iwd`
+        - hdparm # uCore ships it, Aurora doesn't
         - kde-connect
         - ntsync-autoload
-    remove:
-      packages:
-        - firefox
-        - firefox-langpacks
 
   - type: default-flatpaks
     configurations:
