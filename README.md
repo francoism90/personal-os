@@ -43,7 +43,7 @@ To rebase an existing atomic Fedora installation to the latest build, substitute
   systemctl reboot
   ```
 
-The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in the recipe's `image-version`, so you won't get accidentally updated to the next major version.
+The `latest` tag will automatically point to the latest build. Images follow their base image's tag (`image-version`): `aurora-nvidia-open` tracks Aurora's `latest` stream, which moves to a new Fedora major release early (Aurora's `stable` moves later), and `ucore` follows the uCore tag set in its recipe. Use `sudo bootc rollback` if an update misbehaves.
 
 ### Switching between images
 

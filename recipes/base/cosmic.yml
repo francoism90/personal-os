@@ -35,6 +35,7 @@ modules:
         - cosmic-ext-tasks
         - cosmic-ext-tweaks
         - examine
+        - solaar-udev # Logitech device access for the Solaar Flatpak (Aurora already ships it)
 
   - type: default-flatpaks
     configurations:

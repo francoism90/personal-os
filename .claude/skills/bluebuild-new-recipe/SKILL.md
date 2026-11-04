@@ -30,7 +30,7 @@ mistake (see `CLAUDE.md`'s "Adding a new image" section).
    ```
    Compose the `modules:` list from `recipes/base/*.yml` fragments, matching how the existing recipes reuse
    `common.yml` (universal), `desktop.yml` (DE-agnostic desktop tweaks), and a DE-specific fragment
-   (`kinoite.yml`, `cosmic.yml`) — don't inline modules that belong in a shared fragment.
+   (`kde.yml`, `cosmic.yml`) — don't inline modules that belong in a shared fragment.
 
 3. **If the desktop environment has no fragment yet**, create `recipes/base/<de>.yml` as a bare `modules:`
    list (not a standalone recipe — no `name`/`base-image`/etc.), and reference it via `from-file:` from the

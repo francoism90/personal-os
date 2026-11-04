@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this repo is
 
 This is a [BlueBuild](https://blue-build.org/) recipe repository, not an application. It declaratively
-describes a custom Fedora Atomic (Kinoite) OCI image — there is no app code to run, build, or unit test
+describes a custom Fedora Atomic OCI image (KDE on Aurora, plus headless uCore) — there is no app code to run, build, or unit test
 locally. "Building" means BlueBuild's tooling interprets the recipe/module YAML and produces a container
 image; that only happens in CI (or manually via the `bluebuild` CLI, which is not installed in this repo).
 
@@ -54,7 +54,7 @@ treat it as leaked: rotate it, don't just delete the commit.
 New images = new `recipes/recipe-*.yml` file **and** a matching entry added to the `matrix.recipe` list in
 `.github/workflows/build.yml` (both steps are required; a recipe file alone never gets built). If the image
 needs its own desktop-specific tweaks, add a fragment under `recipes/base/` and reference it via `from-file:`
-the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for the scaffolding steps.
+the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for the scaffolding steps.
 
 ## Architecture
 
@@ -100,7 +100,7 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     and published to `https://francoism90.github.io/flatpaks/index.flatpakrepo`. This repo only consumes
     that remote, so adding or updating one of those apps never touches the image recipes. Keep that block
     and the FlatPark one after the Flathub one, because the apps' runtimes come from Flathub.
-  - `kinoite.yml` — KDE-specific bits, used by the Aurora recipe (Aurora handles Plasma/Qt consistency itself with versionlocks, so don't add blanket `dnf upgrade` steps): `default-flatpaks` (system + user scope), including a `system`-scope `kwi-nightly` remote
+  - `kde.yml` — KDE-specific bits, used by the Aurora recipe (Aurora handles Plasma/Qt consistency itself with versionlocks, so don't add blanket `dnf upgrade` steps): `default-flatpaks` (system + user scope), including a `system`-scope `kwi-nightly` remote
     (`https://cdn.kde.org/flatpak/kwi-nightly/kwi-nightly.flatpakrepo`) for KDE's nightly `org.kde.kwi`
     terminal, kept after the Flathub block since its runtime comes from Flathub.
   - `cosmic.yml` — COSMIC-specific bits: the `files` module for the `files/cosmic/` overlay (the
