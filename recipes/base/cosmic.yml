@@ -50,8 +50,10 @@ modules:
         - solaar-udev # Logitech device access for the Solaar Flatpak (Aurora already ships it)
         # CLI tools Aurora/uCore already ship but the Fedora COSMIC base doesn't
         - fastfetch
+        - android-tools # on Aurora: brew install --cask android-platform-tools
         - fish
         - htop
+        - kde-connect
         - lm_sensors
         - rclone
         - tmux
@@ -77,3 +79,9 @@ modules:
           url: https://apt.pop-os.org/cosmic/cosmic.flatpakrepo
         install:
           - dev.DBrox.CosmicPrivacyIndicator
+
+  # Tailscale recipes (setup-tailscale, reset-tailscale); Aurora sets Tailscale up itself.
+  - type: justfiles
+    validate: true
+    include:
+      - tailscale

@@ -9,9 +9,6 @@ modules:
     install:
       skip-unavailable: true
       packages:
-        - android-tools
-        - hdparm # uCore ships it, Aurora doesn't
-        - kde-connect
         - ntsync-autoload
 
   - type: default-flatpaks

@@ -34,7 +34,11 @@ treat it as leaked: rotate it, don't just delete the commit.
   over `recipes/recipe-*.yml` (currently `recipe-aurora-nvidia-open.yml` (based on `ghcr.io/ublue-os/aurora-nvidia-open:testing`) and `recipe-ucore.yml`; the
   `recipe-cosmic-nvidia-open.yml` and `recipe-cosmic-nightly-nvidia-open.yml` entries are commented out, so
   those images aren't built). Triggers: push (except docs-only changes), pull_request, a daily
-  06:00 UTC schedule, and manual `workflow_dispatch`.
+  06:00 UTC schedule, and manual `workflow_dispatch`. `.github/workflows/check-base-images.yml` also runs every
+  2 hours: it compares each built recipe's base image digest with the `org.opencontainers.image.base.digest` label
+  on our published `:latest` and dispatches `build.yml` when they differ (Aurora `testing` is published at irregular
+  times, so a fixed cron can't track it). It skips if a build is running, or if the last build already failed on
+  that base.
 - The action runs with `chunkah: true`: the finished image is rechunked by content, so unchanged files keep
   identical layers across builds and an update only downloads what changed. Without it, every BlueBuild
   module layer gets a new digest on each build (~270 MB for ucore, ~580 MB for the KDE image, re-downloaded
@@ -66,11 +70,11 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
   fragment (not standalone recipes). Current split:
   - `common.yml` — applies to every image: the `files` module (see below),
     only the CLI packages neither base already ships (btrfsmaintenance; packages one base lacks go in that
-    image's own fragment: fish/fastfetch/htop/rsync/gh plus starship from the `atim/starship` copr in `core.yml` (on Aurora they come from Homebrew), hdparm in `desktop.yml`, and the full set in `cosmic.yml`, whose
+    image's own fragment: fish/fastfetch/htop/rsync/gh plus starship from the `atim/starship` copr in `core.yml` (on Aurora they come from Homebrew), and the full set in `cosmic.yml`, whose
     Fedora base has none of them), a `systemd` module enabling the
     btrfsmaintenance timers (`btrfs-balance`, `btrfs-scrub`; trim is left to `fstrim.timer`; schedules come from
     `files/system/etc/sysconfig/btrfsmaintenance`), `fstrim.timer`, plus `podman-auto-update.timer` in
-    both system and user scope and the user `podman.socket`, and the `justfiles` module that wires up the `files/justfiles` recipes (on Universal Blue bases, i.e. Aurora and uCore, they're imported into `ujust` via `60-custom.just`; Aurora sets `allow-duplicate-recipes`, so a recipe of ours with the same name as one of Aurora's silently overrides it; avoid reusing Aurora's recipe names).
+    both system and user scope and the user `podman.socket`, and the `signing` module.
   - `core.yml` — headless uCore (Fedora CoreOS) bits, used by `recipe-ucore.yml` on top of `common.yml`:
     the `files` module for the `files/core/` overlay (kept apart from `files/system` so desktop images
     don't get it): `etc/modules-load.d/zfs.conf` (uCore ships the signed ZFS kmod but doesn't auto-load
@@ -89,9 +93,10 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
     keeps a locally modified or deleted `/etc` file forever. It also installs the
     fish/fastfetch/htop/rsync and the Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
   - `desktop.yml` — desktop-environment-agnostic tweaks: the `files` module for the `files/desktop/`
-    overlay (kept apart from `files/system` so uCore doesn't get it; currently a `bluetooth.service`
-    drop-in that starts `bluetoothd` with `--experimental --kernel=<ISO socket UUID>` for LE Audio, and
-    NetworkManager IPv6 privacy addresses, which a server doesn't want),
+    overlay (kept apart from `files/system` so uCore doesn't get it; currently NetworkManager IPv6 privacy
+    addresses, which a server doesn't want), the `justfiles` module (`include: common`; uCore gets no
+    justfiles. On Aurora they're imported into `ujust` via `60-custom.just`; Aurora sets `allow-duplicate-recipes`, so a
+    recipe of ours with the same name as one of Aurora's silently overrides it, so avoid reusing Aurora's recipe names),
     dnf install (things Aurora doesn't already ship; Aurora already has terra, Tailscale and drops Firefox; don't add the
     terra repo here, Aurora ships `/usr/share/dnf5/repos.d/terra.repo` and a second `terra` repo id fails dnf), `default-flatpaks` (Flathub
     apps, a second `system`-scope `flatpaks` remote for the custom Flatpaks, and a third `system`-scope
@@ -108,7 +113,9 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
   - `cosmic.yml` — COSMIC-specific bits: the `files` module for the `files/cosmic/` overlay (the
     cosmic-nightlight polkit rule and `/etc/environment` with `COSMIC_DISABLE_DIRECT_SCANOUT`), Tailscale from its official repo plus the
     Firefox removal (the Fedora COSMIC base, unlike Aurora/uCore, needs both; `tailscaled.service` isn't enabled,
-    `blujust setup-tailscale` enables it), the terra repo (`terra-release`, `firacode-nerd-fonts`; on Aurora that font
+    `blujust setup-tailscale` enables it; those recipes live in `files/justfiles/tailscale/`, included only here since
+    Aurora enables tailscaled and sets the operator itself), `android-tools` (on Aurora:
+    `brew install --cask android-platform-tools`), the terra repo (`terra-release`, `firacode-nerd-fonts`; on Aurora that font
     comes from `ujust install-fonts` instead), `dnf` install of the terrapkg COSMIC desktop extras (each
     subdirectory under `anda/desktops/cosmic` in `terrapkg/packages` is its own package, not one bundle),
     plus `default-flatpaks` (GTK/libcosmic-friendly Flathub apps, and a `system`-scope `cosmic` repo
