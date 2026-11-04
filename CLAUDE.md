@@ -31,7 +31,7 @@ treat it as leaked: rotate it, don't just delete the commit.
   itself at build time (e.g. the `justfiles` module below has `validate: true`, which checks `just`
   syntax during the build).
 - Builds run via `.github/workflows/build.yml`, using the reusable `blue-build/github-action`, matrixed
-  over `recipes/recipe-*.yml` (currently `recipe-aurora-nvidia-open.yml` (based on `ghcr.io/ublue-os/aurora-nvidia-open:latest`) and `recipe-ucore.yml`; the
+  over `recipes/recipe-*.yml` (currently `recipe-aurora-nvidia-open.yml` (based on `ghcr.io/ublue-os/aurora-nvidia-open:testing`) and `recipe-ucore.yml`; the
   `recipe-cosmic-nvidia-open.yml` and `recipe-cosmic-nightly-nvidia-open.yml` entries are commented out, so
   those images aren't built). Triggers: push (except docs-only changes), pull_request, a daily
   06:00 UTC schedule, and manual `workflow_dispatch`.

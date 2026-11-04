@@ -3,7 +3,7 @@
 name: aurora-nvidia-open
 description: Aurora with nvidia-open
 base-image: ghcr.io/ublue-os/aurora-nvidia-open
-image-version: latest
+image-version: testing # Aurora main = Fedora 45; switch back to latest once Aurora moves latest to 45
 modules:
   - from-file: base/common.yml
   - from-file: base/desktop.yml
