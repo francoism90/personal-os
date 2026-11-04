@@ -21,7 +21,6 @@ modules:
       skip-unavailable: true
       packages:
         - android-tools
-        - iwd # disabled by default; switch with `ujust switch-iwd`
         - kde-connect
         - ntsync-autoload
 

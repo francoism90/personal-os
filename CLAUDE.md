@@ -68,7 +68,7 @@ the same way `kinoite.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill
     common CLI packages (btrfsmaintenance, hdparm, htop, lm_sensors, rclone, rsync, tmux), a `systemd` module enabling the
     btrfsmaintenance timers (`btrfs-balance`, `btrfs-scrub`; trim is left to `fstrim.timer`; schedules come from
     `files/system/etc/sysconfig/btrfsmaintenance`), `fstrim.timer`, plus `podman-auto-update.timer` in
-    both system and user scope and the user `podman.socket`, and the `justfiles` module that wires up the `files/justfiles` recipes (on Universal Blue bases, i.e. Aurora and uCore, they're imported into `ujust` via `60-custom.just`; Aurora sets `allow-duplicate-recipes`, so a recipe of ours with the same name as one of Aurora's silently overrides it; avoid reusing Aurora's names, which is why ours is `switch-iwd`, not `toggle-iwd`).
+    both system and user scope and the user `podman.socket`, and the `justfiles` module that wires up the `files/justfiles` recipes (on Universal Blue bases, i.e. Aurora and uCore, they're imported into `ujust` via `60-custom.just`; Aurora sets `allow-duplicate-recipes`, so a recipe of ours with the same name as one of Aurora's silently overrides it; avoid reusing Aurora's recipe names).
   - `core.yml` — headless uCore (Fedora CoreOS) bits, used by `recipe-ucore.yml` on top of `common.yml`:
     the `files` module for the `files/core/` overlay (kept apart from `files/system` so desktop images
     don't get it): `etc/modules-load.d/zfs.conf` (uCore ships the signed ZFS kmod but doesn't auto-load
