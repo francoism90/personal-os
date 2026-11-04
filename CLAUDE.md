@@ -65,7 +65,9 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
 - `recipes/base/*.yml` — reusable module fragments shared across recipes, each just a `modules:` list
   fragment (not standalone recipes). Current split:
   - `common.yml` — applies to every image: the `files` module (see below), fish/starship via a copr,
-    common CLI packages (btrfsmaintenance, hdparm, htop, lm_sensors, rclone, rsync, tmux), a `systemd` module enabling the
+    only the CLI packages neither base already ships (btrfsmaintenance, rsync, gh; packages one base lacks go in that
+    image's own fragment: fish/fastfetch/htop in `core.yml`, hdparm in `desktop.yml`, and the full set in `cosmic.yml`, whose
+    Fedora base has none of them), a `systemd` module enabling the
     btrfsmaintenance timers (`btrfs-balance`, `btrfs-scrub`; trim is left to `fstrim.timer`; schedules come from
     `files/system/etc/sysconfig/btrfsmaintenance`), `fstrim.timer`, plus `podman-auto-update.timer` in
     both system and user scope and the user `podman.socket`, and the `justfiles` module that wires up the `files/justfiles` recipes (on Universal Blue bases, i.e. Aurora and uCore, they're imported into `ujust` via `60-custom.just`; Aurora sets `allow-duplicate-recipes`, so a recipe of ours with the same name as one of Aurora's silently overrides it; avoid reusing Aurora's recipe names).
@@ -85,7 +87,7 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
     off on a host with `systemctl mask`). Prefer this over the `systemd` module for anything that must stay
     enabled, and prefer `/usr/lib` over `/etc` for shipped config wherever the program reads it: ostree
     keeps a locally modified or deleted `/etc` file forever. It also installs the
-    Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
+    fish/fastfetch/htop and the Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
   - `desktop.yml` — desktop-environment-agnostic tweaks: the `files` module for the `files/desktop/`
     overlay (kept apart from `files/system` so uCore doesn't get it; currently a `bluetooth.service`
     drop-in that starts `bluetoothd` with `--experimental --kernel=<ISO socket UUID>` for LE Audio, and

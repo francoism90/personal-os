@@ -4,19 +4,13 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
-  # Install common packages
+  # Packages neither base ships. Aurora and uCore both already have lm_sensors, rclone and tmux;
+  # the rest of the old common list now lives in core.yml (missing on uCore) or desktop.yml (missing on Aurora).
   - type: dnf
     install:
       packages:
         - btrfsmaintenance
-        - hdparm
-        - htop
-        - lm_sensors
-        - rclone
         - rsync
-        - tmux
-        - fish
-        - fastfetch
         - gh
 
   # Install starship

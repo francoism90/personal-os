@@ -36,6 +36,13 @@ modules:
         - cosmic-ext-tweaks
         - examine
         - solaar-udev # Logitech device access for the Solaar Flatpak (Aurora already ships it)
+        # CLI tools Aurora/uCore already ship but the Fedora COSMIC base doesn't
+        - fastfetch
+        - fish
+        - htop
+        - lm_sensors
+        - rclone
+        - tmux
 
   - type: default-flatpaks
     configurations:

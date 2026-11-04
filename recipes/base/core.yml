@@ -15,9 +15,13 @@ modules:
 
   # Cockpit: uCore already ships cockpit-networkmanager, -podman, -selinux, -storaged and -system,
   # so only the rest is added here.
+  # fish, fastfetch and htop: Aurora ships them, uCore doesn't.
   - type: dnf
     install:
       packages:
+        - fish
+        - fastfetch
+        - htop
         - cockpit
         - cockpit-ostree
         - cockpit-ws-selinux
