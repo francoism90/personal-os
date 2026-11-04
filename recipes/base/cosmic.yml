@@ -52,6 +52,7 @@ modules:
         - fastfetch
         - fish
         - htop
+        - kde-connect
         - lm_sensors
         - rclone
         - tmux
