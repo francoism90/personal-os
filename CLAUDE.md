@@ -64,9 +64,9 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
   `matrix.recipe` list in `.github/workflows/build.yml`.
 - `recipes/base/*.yml` — reusable module fragments shared across recipes, each just a `modules:` list
   fragment (not standalone recipes). Current split:
-  - `common.yml` — applies to every image: the `files` module (see below), fish/starship via a copr,
-    only the CLI packages neither base already ships (btrfsmaintenance, rsync, gh; packages one base lacks go in that
-    image's own fragment: fish/fastfetch/htop in `core.yml`, hdparm in `desktop.yml`, and the full set in `cosmic.yml`, whose
+  - `common.yml` — applies to every image: the `files` module (see below),
+    only the CLI packages neither base already ships (btrfsmaintenance, rsync; packages one base lacks go in that
+    image's own fragment: fish/fastfetch/htop/gh plus starship from the `atim/starship` copr in `core.yml` (on Aurora they come from Homebrew), hdparm in `desktop.yml`, and the full set in `cosmic.yml`, whose
     Fedora base has none of them), a `systemd` module enabling the
     btrfsmaintenance timers (`btrfs-balance`, `btrfs-scrub`; trim is left to `fstrim.timer`; schedules come from
     `files/system/etc/sysconfig/btrfsmaintenance`), `fstrim.timer`, plus `podman-auto-update.timer` in

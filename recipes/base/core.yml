@@ -15,14 +15,24 @@ modules:
 
   # Cockpit: uCore already ships cockpit-networkmanager, -podman, -selinux, -storaged and -system,
   # so only the rest is added here.
-  # fish, fastfetch and htop: Aurora ships them, uCore doesn't.
+  # fish, fastfetch and htop: Aurora ships them, uCore doesn't. gh (and starship below) are uCore-only;
+  # on Aurora they come from Homebrew instead.
   - type: dnf
     install:
       packages:
         - fish
         - fastfetch
         - htop
+        - gh
         - cockpit
         - cockpit-ostree
         - cockpit-ws-selinux
+
+  - type: dnf
+    repos:
+      copr:
+        - atim/starship
+    install:
+      packages:
+        - starship
 
