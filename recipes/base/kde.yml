@@ -1,4 +1,14 @@
 modules:
+  # Own packages - https://copr.fedorainfracloud.org/coprs/francoism/fedora-packages/
+  # (sources at https://github.com/francoism90/fedora-packages)
+  - type: dnf
+    repos:
+      copr:
+        - francoism/fedora-packages
+    install:
+      packages:
+        - kora-icon-theme
+
   - type: default-flatpaks
     configurations:
       - scope: system

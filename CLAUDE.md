@@ -110,7 +110,8 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
     and published to `https://francoism90.github.io/flatpaks/index.flatpakrepo`. This repo only consumes
     that remote, so adding or updating one of those apps never touches the image recipes. Keep that block
     and the FlatPark one after the Flathub one, because the apps' runtimes come from Flathub.
-  - `kde.yml` — KDE-specific bits, used by the Aurora recipe (Aurora handles Plasma/Qt consistency itself with versionlocks, so don't add blanket `dnf upgrade` steps): `default-flatpaks` (system + user scope), including a `system`-scope `kwi-nightly` remote
+  - `kde.yml` — KDE-specific bits, used by the Aurora recipe (Aurora handles Plasma/Qt consistency itself with versionlocks, so don't add blanket `dnf upgrade` steps): a `dnf` module installing `kora-icon-theme` from the
+    `francoism/fedora-packages` copr (sources in [`francoism90/fedora-packages`](https://github.com/francoism90/fedora-packages)), `default-flatpaks` (system + user scope), including a `system`-scope `kwi-nightly` remote
     (`https://cdn.kde.org/flatpak/kwi-nightly/kwi-nightly.flatpakrepo`) for KDE's nightly `org.kde.kwi`
     terminal, kept after the Flathub block since its runtime comes from Flathub. Also a second `justfiles`
     module including `files/justfiles/kde/` (`enable-flatpak-breeze-theme`/`remove-flatpak-breeze-theme`,
