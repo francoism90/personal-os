@@ -94,7 +94,10 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
     fish/fastfetch/htop/rsync and the Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
   - `desktop.yml` — desktop-environment-agnostic tweaks: the `files` module for the `files/desktop/`
     overlay (kept apart from `files/system` so uCore doesn't get it; currently NetworkManager IPv6 privacy
-    addresses, which a server doesn't want), the `justfiles` module (`include: common`; uCore gets no
+    addresses, which a server doesn't want, and Bitwarden's polkit action
+    `usr/share/polkit-1/actions/com.bitwarden.Bitwarden.policy`, which the Flatpak can't install itself and
+    which "Unlock with system authentication" needs; polkit only reads actions from read-only `/usr`, so it
+    can't be a `ujust` recipe), the `justfiles` module (`include: common`; uCore gets no
     justfiles. On Aurora they're imported into `ujust` via `60-custom.just`; Aurora sets `allow-duplicate-recipes`, so a
     recipe of ours with the same name as one of Aurora's silently overrides it, so avoid reusing Aurora's recipe names),
     dnf install (things Aurora doesn't already ship; Aurora already has terra, Tailscale and drops Firefox; don't add the
