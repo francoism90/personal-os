@@ -70,7 +70,7 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
   fragment (not standalone recipes). Current split:
   - `common.yml` — applies to every image: the `files` module (see below),
     only the CLI packages neither base already ships (btrfsmaintenance; packages one base lacks go in that
-    image's own fragment: fish/fastfetch/htop/rsync/gh plus starship from the `atim/starship` copr in `core.yml` (on Aurora they come from Homebrew), and the full set in `cosmic.yml`, whose
+    image's own fragment: fish/fastfetch/htop/rsync/gh/chezmoi plus starship from the `atim/starship` copr in `core.yml` (on Aurora they come from Homebrew), and the full set in `cosmic.yml`, whose
     Fedora base has none of them), a `systemd` module enabling the
     btrfsmaintenance timers (`btrfs-balance`, `btrfs-scrub`; trim is left to `fstrim.timer`; schedules come from
     `files/system/etc/sysconfig/btrfsmaintenance`), `fstrim.timer`, plus `podman-auto-update.timer` in
