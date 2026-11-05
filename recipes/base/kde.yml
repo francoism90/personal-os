@@ -21,7 +21,6 @@ modules:
           - org.kde.kcolorchooser
           - org.kde.kdf
           - org.kde.kdiff3
-          - org.kde.keepsecret
           - org.kde.kfind
           - org.kde.kolourpaint
           - org.kde.krita
