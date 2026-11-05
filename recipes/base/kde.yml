@@ -39,3 +39,9 @@ modules:
           url: https://cdn.kde.org/flatpak/kwi-nightly/kwi-nightly.flatpakrepo
         install:
           - org.kde.kwi
+
+  # KDE-only recipes (enable/remove-flatpak-breeze-theme)
+  - type: justfiles
+    validate: true
+    include:
+      - kde

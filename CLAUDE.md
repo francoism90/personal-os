@@ -109,7 +109,9 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
     and the FlatPark one after the Flathub one, because the apps' runtimes come from Flathub.
   - `kde.yml` — KDE-specific bits, used by the Aurora recipe (Aurora handles Plasma/Qt consistency itself with versionlocks, so don't add blanket `dnf upgrade` steps): `default-flatpaks` (system + user scope), including a `system`-scope `kwi-nightly` remote
     (`https://cdn.kde.org/flatpak/kwi-nightly/kwi-nightly.flatpakrepo`) for KDE's nightly `org.kde.kwi`
-    terminal, kept after the Flathub block since its runtime comes from Flathub.
+    terminal, kept after the Flathub block since its runtime comes from Flathub. Also a second `justfiles`
+    module including `files/justfiles/kde/` (`enable-flatpak-breeze-theme`/`remove-flatpak-breeze-theme`,
+    the global Flatpak override that lets GTK apps follow Plasma's Breeze colours, flathub/org.gtk.Gtk3theme.Breeze#170).
   - `cosmic.yml` — COSMIC-specific bits: the `files` module for the `files/cosmic/` overlay (the
     cosmic-nightlight polkit rule and `/etc/environment` with `COSMIC_DISABLE_DIRECT_SCANOUT`), Tailscale from its official repo plus the
     Firefox removal (the Fedora COSMIC base, unlike Aurora/uCore, needs both; `tailscaled.service` isn't enabled,
