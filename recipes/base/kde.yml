@@ -20,7 +20,6 @@ modules:
           - org.fkoehler.KTailctl
           - org.gtk.Gtk3theme.Breeze
           - org.kde.elisa
-          - org.kde.falkon
           - org.kde.filelight
           - org.kde.gwenview
           - org.kde.haruna
