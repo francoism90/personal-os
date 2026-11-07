@@ -3,7 +3,7 @@
 name: ucore
 description: Headless Fedora CoreOS (uCore) with ZFS
 base-image: ghcr.io/ublue-os/ucore
-image-version: stable
+image-version: testing
 modules:
   - from-file: base/common.yml
   - from-file: base/core.yml
