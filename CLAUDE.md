@@ -91,7 +91,9 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
     off on a host with `systemctl mask`). Prefer this over the `systemd` module for anything that must stay
     enabled, and prefer `/usr/lib` over `/etc` for shipped config wherever the program reads it: ostree
     keeps a locally modified or deleted `/etc` file forever. It also installs the
-    fish/fastfetch/htop/rsync and the Cockpit packages uCore doesn't already ship (`cockpit`, `cockpit-ostree`, `cockpit-ws-selinux`).
+    fish/fastfetch/htop/rsync packages uCore doesn't already ship. No Cockpit packages: uCore runs `cockpit-ws` as
+    the `quay.io/cockpit/ws` container via its own `cockpit.service`, which the `cockpit`/`cockpit-ws` RPM would
+    overwrite, and `cockpit-ostree` doesn't handle container-native/bootc deployments (ublue-os/ucore#196).
   - `desktop.yml` — desktop-environment-agnostic tweaks: the `files` module for the `files/desktop/`
     overlay (kept apart from `files/system` so uCore doesn't get it; currently NetworkManager IPv6 privacy
     addresses, which a server doesn't want, and Bitwarden's polkit action

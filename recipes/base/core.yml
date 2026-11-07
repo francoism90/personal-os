@@ -13,8 +13,11 @@ modules:
       - source: core
         destination: /
 
-  # Cockpit: uCore already ships cockpit-networkmanager, -podman, -selinux, -storaged and -system,
-  # so only the rest is added here.
+  # Cockpit: no packages here. uCore ships the host-side pages (cockpit-system, -files, -networkmanager,
+  # -podman, -selinux) and runs cockpit-ws as the quay.io/cockpit/ws container via its own
+  # cockpit.service (auto-updated by podman-auto-update). Installing the cockpit/cockpit-ws RPM would
+  # overwrite that unit; cockpit-ostree doesn't understand container-native/bootc deployments
+  # (ublue-os/ucore#196).
   # fish, fastfetch, htop and rsync: Aurora ships them, uCore may not. gh, chezmoi (and starship below) are
   # uCore-only; on Aurora they come from Homebrew instead.
   - type: dnf
@@ -26,9 +29,6 @@ modules:
         - rsync
         - gh
         - chezmoi
-        - cockpit
-        - cockpit-ostree
-        - cockpit-ws-selinux
 
   - type: dnf
     repos:
