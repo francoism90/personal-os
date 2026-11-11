@@ -8,6 +8,10 @@ modules:
   # - zfs-unlock.service: loads all ZFS encryption keys before zfs-mount.service. Its per-pool sibling
   #   zfs-unlock@<pool>.service is shipped but not enabled (no pool names known at build time); to use
   #   it instead, mask zfs-unlock.service and enable the per-pool unit on the host. Don't run both.
+  # - tailscaled.service: uCore ships Tailscale but leaves it disabled. Joining the tailnet
+  #   (sudo tailscale up ...) stays a one-time host step; its flags persist in tailscaled's state.
+  # Tailscale exit node/subnet router support: IP forwarding in usr/lib/sysctl.d/90-personal-os.conf
+  # and UDP GRO forwarding on physical NICs via usr/lib/NetworkManager/dispatcher.d/50-tailscale-udp-gro.
   - type: files
     files:
       - source: core
@@ -29,6 +33,7 @@ modules:
         - rsync
         - gh
         - chezmoi
+        - ethtool # used by the Tailscale UDP GRO dispatcher script; a no-op if uCore already ships it
 
   - type: dnf
     repos:

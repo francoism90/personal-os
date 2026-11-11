@@ -79,14 +79,14 @@ the same way `kde.yml`/`cosmic.yml` do. See the `bluebuild-new-recipe` skill for
     the `files` module for the `files/core/` overlay (kept apart from `files/system` so desktop images
     don't get it): `etc/modules-load.d/zfs.conf` (uCore ships the signed ZFS kmod but doesn't auto-load
     it), `usr/lib/modprobe.d/50-no-wifi.conf` (blocks `iwlwifi`; the server is wired-only),
-    `usr/lib/sysctl.d/90-personal-os.conf` (server-tuned; overwrites the more conservative desktop copy from
+    `usr/lib/sysctl.d/90-personal-os.conf` (server-tuned, incl. IP forwarding for the Tailscale exit node/subnet router; overwrites the more conservative desktop copy from
     `files/system`, since `core.yml` runs after `common.yml`), `usr/lib/udev/rules.d/69-hdd.rules`
-    (hdparm APM/spindown for HDDs, and `none` instead of Fedora's `bfq` for SATA HDDs, which are the ZFS disks), `zfs-unlock.service` (runs `zfs load-key -a` before `zfs-mount.service`; OpenZFS ships no key-loading
+    (hdparm APM/spindown for HDDs, and `none` instead of Fedora's `bfq` for SATA HDDs, which are the ZFS disks), `usr/lib/NetworkManager/dispatcher.d/50-tailscale-udp-gro` (UDP GRO forwarding on physical NICs, for Tailscale throughput), `zfs-unlock.service` (runs `zfs load-key -a` before `zfs-mount.service`; OpenZFS ships no key-loading
     unit of its own) plus the per-pool `zfs-unlock@<pool>.service` (`load-key -r <pool>`, shipped but not
     enabled; use one or the other) and the `power-profile@*` service/timers that switch tuned profiles by
     time of day. Those units live under `files/core/usr/lib/systemd/system/` (vendor location, so a local
     `/etc` copy never shadows image updates). There is no `systemd` module: the timers, `zfs-unlock.service`
-    and `tuned.service` (which uCore ships but disables) are enabled by vendor symlinks in
+    `tuned.service` and `tailscaled.service` (both shipped but disabled by uCore) are enabled by vendor symlinks in
     `files/core/usr/lib/systemd/system/*.wants/`, so a stale or rebased `/etc` can't drop them (turn one
     off on a host with `systemctl mask`). Prefer this over the `systemd` module for anything that must stay
     enabled, and prefer `/usr/lib` over `/etc` for shipped config wherever the program reads it: ostree

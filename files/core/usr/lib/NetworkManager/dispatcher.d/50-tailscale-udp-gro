@@ -1,0 +1,9 @@
+#!/bin/sh
+# Shipped by the image (files/core). Tailscale exit node / subnet router throughput:
+# enable UDP GRO forwarding on physical NICs when they come up.
+# https://tailscale.com/s/ethtool-config-udp-gro
+# NetworkManager passes the interface as $1 and the action as $2.
+[ "$2" = "up" ] || exit 0
+# Physical NICs only (skips lo, tailscale0, bridges, veths, ...).
+[ -e "/sys/class/net/$1/device" ] || exit 0
+ethtool -K "$1" rx-udp-gro-forwarding on rx-gro-list off 2>/dev/null || true
